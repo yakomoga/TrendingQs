@@ -2,6 +2,7 @@
 
 TWITTER API 
 an example URL of a tweet:
+"base_url" + user.screen_name + "/status/" + status.id
 "https://twitter.com/SethDillon/status/1261713288620113920"
 "https://twitter.com/user.screen_name/status/status.id"
 
@@ -65,6 +66,19 @@ SLider Gallery in pure Javascript
 https://medium.com/@fionnachan/how-to-write-a-slider-in-pure-javascript-838c0d98fd69
 
 STRING PROCESSING METHODS
+https://images.app.goo.gl/HXe1khH99anXBPUC8
+.split(",")//converts a string into an array. Use the argument to specify the delimiter
+.search("str")// can be used with regex to find one or more sbstrings in a string. Returns the number of the location of the first index of thee str argument
+.replace(/Microsoft/g, "W3Schools")// can be used with regex to replace one or more sbstrings in a string. Returns the string with replaced text
+.splice(5,12)// used to remove a specified amount of a string from a particular location.
+.trim()//removes white space from around a string. Not safe for IE 7 or earlier. Can use replace with regex instead 
+.includes("str")//returns true if the str arcgument is in the given string. Otherwiss return false. 
+
+REGEX
+Explainer article
+https://levelup.gitconnected.com/read-this-if-you-dont-know-enough-about-regex-73141bb0e1a7
+Online expression tester
+https://regex101.com/
 
 TRIGGERING PROCE55ING FROM THE COMMAND LINE
 $ processing-java --sketch=`pwd`/sketch_name --run

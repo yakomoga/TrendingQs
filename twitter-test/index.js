@@ -11,7 +11,8 @@ var T = new Twit({
 });
 
 //This sets the twitter bot to get new questions once a day and to inject them into the database
-setInterval(T.get, 100 * 60 * 60 * 24);
+//the input of the second parameter is time and the units are milliseconds
+setInterval(T.get, 1000 * 60 * 60 * 24);
 
 function isInquiry(string) {
   const qarray = [
@@ -59,6 +60,34 @@ function isInquiry(string) {
   });
 }
 
+//Here we're going to strip out any @mentions, hashtags 
+function cleanText(string){
+  let mystring = string.replace(/\s\W/,"");
+  return string;
+}
+
+//Here we're going to test for what type of question it is
+//It can either be a yes/no type question with only two choices
+function isBinary(){
+
+}
+//Or it can be a mutiple choice, with more than two choices but exclusive or
+function isMultipleChoice(){
+
+}
+//Or it can be a mutiple choice, with more than two choices and any that apply
+function isChecklist(){
+
+}
+
+//Or it can be a rating scale question "to what extent do you agree?"
+function isRating(){
+
+}
+
+
+
+
 T.get(
   "search/tweets",
   {
@@ -74,13 +103,15 @@ T.get(
     myArray.forEach((status) => {
       console.log(status.text);
       console.log(status.created_at);
+      if(this.isEnquiry(status.text)) //upload to database
 
-      let linktotweet =
+
+      let twurl =
         "http://www.twitter.com/" +
         status.user.screen_name +
         "/status/" +
         status.id;
-      console.log(linktotweet);
+      console.log(twurl);
     });
 
     //console.log(data.statuses[3].text);
