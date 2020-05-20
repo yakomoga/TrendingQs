@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <style>
+       .slidecontainer {
+        width: 50%;
+      }
+
+      .range-slider {
+        -webkit-appearance: none;
+        width: 100%;
+        height: 10px;
+        border-radius: 5px;
+        background: #d3d3d3;
+        outline: none;
+        opacity: 0.7;
+        -webkit-transition: 0.2s;
+        transition: opacity 0.2s;
+      }
+
+      .range-slider:hover {
+        opacity: 1;
+      }
+
+      .range-slider::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 23px;
+        height: 24px;
+        border: 0;
+        background: url("contrasticon.png");
+        cursor: pointer;
+      }
+
+      .range-slider::-moz-range-thumb {
+        width: 23px;
+        height: 24px;
+        border: 0;
+        background: url("contrasticon.png");
+        cursor: pointer;
+      }
+      .switch {
+        position: relative;
+        display: inline-block;
+        width: 60px;
+        height: 34px;
+      }
+
+      .switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+      }
+
+      .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #ccc;
+        -webkit-transition: 0.4s;
+        transition: 0.4s;
+      }
+
+      .slider:before {
+        position: absolute;
+        content: "";
+        height: 26px;
+        width: 26px;
+        left: 4px;
+        bottom: 4px;
+        background-color: white;
+        -webkit-transition: 0.4s;
+        transition: 0.4s;
+      }
+
+      input:checked + .slider {
+        background-color: #2196f3;
+      }
+
+      input:focus + .slider {
+        box-shadow: 0 0 1px #2196f3;
+      }
+
+      input:checked + .slider:before {
+        -webkit-transform: translateX(26px);
+        -ms-transform: translateX(26px);
+        transform: translateX(26px);
+      }
+
+      /* Rounded sliders */
+      .slider.round {
+        border-radius: 34px;
+      }
+
+      .slider.round:before {
+        border-radius: 50%;
+      }
+    </style>
+
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" type="text/css" href="styles.css" />
+  </head>
+  <body class="bg-light">
+    <div class="container">
+      <form action="action" method="POST">
+        <section name="assessment">
+          <div class="form-group">
+            <label for="Y1">Rate your school for learning</label>
+            <input
+              class="range-slider"
+              type="range"
+              name="learning rating"
+              id="Y1"
+              min="0"
+              max="10"
+              step="0.1"
+            />
+          </div>
+          <div class="form-group">
+            <label for="Y1b"
+              >What things could be improved at your school to help you
+              learn?</label
+            ><br />
+            <input
+              type="checkbox"
+              id="Y1b"
+              name="improvements"
+              value="nothing"
+            />Nothing, everything is perfect<br />
+            <input
+              type="checkbox"
+              id="Y1b"
+              name="improvements"
+              value="space"
+            />More space or better arranged spaces could help<br />
+            <input
+              type="checkbox"
+              id="Y1b"
+              name="improvements"
+              value="time"
+            />More time, or better timetabling could help<br />
+            <input
+              type="checkbox"
+              id="Y1b"
+              name="improvements"
+              value="peers"
+            />Changing my classmates' behaviour would help<br />
+            <input
+              type="checkbox"
+              id="Y1b"
+              name="improvements"
+              value="rules"
+            />Changing the rules and regulations would help<br />
+            <input
+              type="checkbox"
+              id="Y1b"
+              name="improvements"
+              value="teachers"
+            />changing my teachers would help<br />
+          </div>
+          <div class="form-group">
+            <label for="Y4">Rate your school for safety</label>
+            <input
+              class="form-control"
+              type="range"
+              name="safety rating"
+              id="Y4"
+              min="0"
+              max="10"
+              step="0.1"
+            />
+          </div>
+          <div class="form-group">
+            <label for="Y4b"
+              >What things could be improved at your school to help you improve
+              your safety?</label
+            ><br />
+            <input
+              type="checkbox"
+              id="Y4b"
+              name="improvements"
+              value="nothing"
+            />Nothing, everything is perfect<br />
+            <input
+              type="checkbox"
+              id="Y4b"
+              name="improvements"
+              value="space"
+            />More space or better arranged spaces could help<br />
+            <input
+              type="checkbox"
+              id="Y4b"
+              name="improvements"
+              value="time"
+            />More time, or better timetabling could help<br />
+            <input
+              type="checkbox"
+              id="Y4b"
+              name="improvements"
+              value="peers"
+            />Changing my classmates' behaviour would help<br />
+            <input
+              type="checkbox"
+              id="Y4b"
+              name="improvements"
+              value="rules"
+            />Changing the rules and regulations would help<br />
+            <input
+              type="checkbox"
+              id="Y4b"
+              name="improvements"
+              value="teachers"
+            />changing my teachers would help<br />
+          </div>
+          <div class="form-group">
+            <label for="Y2">Rate your school for sociability</label>
+            <input
+              class="form-control"
+              type="range"
+              name="sociability rating"
+              id="Y2"
+              min="0"
+              max="10"
+              step="0.1"
+            />
+          </div>
+          <div class="form-group">
+            <label for="Y2b"
+              >What things could be improved at your school to improve your social life?</label
+            ><br />
+            <input
+              type="checkbox"
+              id="Y2b"
+              name="improvements"
+              value="nothing"
+            />Nothing, everything is perfect<br />
+            <input
+              type="checkbox"
+              id="Y2b"
+              name="improvements"
+              value="space"
+            />More space or better arranged spaces could help<br />
+            <input
+              type="checkbox"
+              id="Y2b"
+              name="improvements"
+              value="time"
+            />More time, or better timetabling could help<br />
+            <input
+              type="checkbox"
+              id="Y2b"
+              name="improvements"
+              value="peers"
+            />Changing my classmates' behaviour would help<br />
+            <input
+              type="checkbox"
+              id="Y2b"
+              name="improvements"
+              value="rules"
+            />Changing the rules and regulations would help<br />
+            <input
+              type="checkbox"
+              id="Y2b"
+              name="improvements"
+              value="teachers"
+            />changing my teachers would help<br />
+          <div class="form-group">
+            <label for="Y3">Rate your school for movement</label>
+            <input
+              class="form-control"
+              type="range"
+              name="movement rating"
+              id="Y3"
+              min="0"
+              max="10"
+              step="0.1"
+            />
+          </div>
+          <div class="form-group">
+            <label for="Y3b"
+              >What things could be improved at your school to help you
+              move around it more easily?</label
+            ><br />
+            <input
+              type="checkbox"
+              id="Y3b"
+              name="improvements"
+              value="nothing"
+            />Nothing, everything is perfect<br />
+            <input
+              type="checkbox"
+              id="Y3b"
+              name="improvements"
+              value="space"
+            />More space or better arranged spaces could help<br />
+            <input
+              type="checkbox"
+              id="Y3b"
+              name="improvements"
+              value="time"
+            />More time, or better timetabling could help<br />
+            <input
+              type="checkbox"
+              id="Y3b"
+              name="improvements"
+              value="peers"
+            />Changing my classmates' behaviour would help<br />
+            <input
+              type="checkbox"
+              id="Y3b"
+              name="improvements"
+              value="rules"
+            />Changing the rules and regulations would help<br />
+            <input
+              type="checkbox"
+              id="Y3b"
+              name="improvements"
+              value="teachers"
+            />changing my teachers would help<br />
+        </section>
+    <section name= "values">
+        <div class="form-group" name="LFS">
+        <label for="LFS"
+              >If you had to choose between a great environment to learn or a very safe environment, which would you choose?</label
+            ><br />
+            <div>
+              <span>Learn</span>
+              <span> <label class="switch">
+                <input type="checkbox" checked />
+                <span class="slider round"></span>
+              </label></span>
+              <span>Feel Safe</span>
+            </div>
+        </div>
+        <div class="form-group" name="SFS">
+            <label for="LFS"
+                  >If you had to choose between a great environment for socializing or a very safe environment, which would you choose?</label
+                ><br />
+                <div>
+                <span>Socializing</span>
+                <span> <label class="switch">
+                  <input type="checkbox" checked />
+                  <span class="slider round"></span>
+                </label></span>
+                <span>Feel safe</span>
+              </div>
+            </div>
+            <div class="form-group" name="SMV">
+                <label for="LFS"
+                      >If you had to choose between a great environment for socializing or an environment adapted for ease of movement, which would you choose?</label
+                    ><br />
+                    <span>Social Life</span>
+                    <span> <label class="switch">
+                      <input type="checkbox" checked />
+                      <span class="slider round"></span>
+                    </label></span>
+                    <span>Movement</span>
+                </div>
+                <div class="form-group" name="MVL">
+                    <label for="LFS"
+                          >If you had to choose between an environment adapted for ease of movement or  a great environment to learn, which would you choose?</label
+                        ><br />
+                        <span>Movement</span>
+                        <span> <label class="switch">
+                          <input type="checkbox" checked />
+                          <span class="slider round"></span>
+                        </label></span>
+                        <span>Learning</span>
+                    </div>
+                    <div class="form-group" name="MVFS">
+                        <label for=""
+                              >If you had to choose between a great environment fr movement or a very safe environment, which would you choose?</label
+                            ><br />
+                            <span>Movement</span>
+                            <span> <label class="switch">
+                              <input type="checkbox" checked />
+                              <span class="slider round"></span>
+                            </label></span>
+                            <span>Feel Safe</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="LS"
+                                  >If you had to choose between a great environment to learn or a great environment for socializing, which would you choose?</label
+                                ><br />
+                                <span>Learn</span>
+                                <span> <label class="switch">
+                                  <input type="checkbox" checked />
+                                  <span class="slider round"></span>
+                                </label></span>
+                                <span>Socialize</span>
+                            </div>
+    </section>
+    <section name = "demographics">
+
+    </section>
+      </form>
+    </div>
+  </body>
+</html>
