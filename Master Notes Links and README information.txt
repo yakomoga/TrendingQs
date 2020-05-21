@@ -94,3 +94,9 @@ let params = {encoding: "base64"};
  T.post("media/upload", {media_data: b64}, uploaded)
 console.log("finished!");
 }
+//To remove a foreign key from a table:
+ALTER TABLE table_name 
+DROP FOREIGN KEY constraint_name;
+
+INSERT INTO questions (type_id, assessment_id, text, date, twurl, quiz_id) VALUES (1, 1, "Is this a question?", "2020-05-21 01:27:41", "http://www.twitter.com/avinash/status/1263256807138459600","test");
+ 
