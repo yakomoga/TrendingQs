@@ -13,7 +13,7 @@ var T = new Twit({
 
 //This sets the twitter bot to get new questions once a day and to inject them into the database
 //the input of the second parameter is time and the units are milliseconds
-setInterval(T.get, 1000 * 60 * 60 * 24);
+setInterval(T.get, 1000 * 60);
 
 function isEnquiry(string) {
   let qarray = [
@@ -131,11 +131,9 @@ T.get(
         "/status/" +
         status.id;
       console.log(twurl);
-      //It doesn't like this syntax as it can't seem to locate the function that I wrote...
       //upload to database
-      //`INSERT INTO questions (type_id, text, date, twurl) VALUES (1, ${text}, ${timestamp}, ${twurl});`;
       db(
-        `INSERT INTO questions (type_id, text, date, twurl) VALUES (1, ${text}, ${timestamp}, ${twurl});`
+        `INSERT INTO questions (type_id, text, date, twurl) VALUES (1, "${text}", "${timestamp}", "${twurl}");`
       )
         .then((results) => {
           console.log(results);
