@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2020-05-22T13:18:24.642Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.61 Safari/537.36" etag="315ShUHQnWs5rIEb3HCo" version="12.9.3" type="github">
+<mxfile host="app.diagrams.net" modified="2020-05-22T13:22:16.845Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.61 Safari/537.36" etag="rHrCCpKLG4-dvjUUSIZE" version="12.9.3" type="github">
   <diagram id="XAuINee-cAV85EihBbFR" name="Page-1">
     <mxGraphModel dx="1038" dy="580" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -46,35 +46,35 @@
             <mxPoint x="-270" y="10" as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="G0vkxuDNQqhEIHFCdH5S-2" value="" style="html=1;shadow=0;dashed=0;shape=mxgraph.bootstrap.rrect;rSize=5;html=1;whiteSpace=wrap;verticalAlign=bottom;align=left;spacing=20;spacingBottom=130;fontSize=14;" parent="G0vkxuDNQqhEIHFCdH5S-11" vertex="1">
-          <mxGeometry x="275" y="230" width="525" height="450" as="geometry" />
+        <mxCell id="4fn5vu_Aj_78YFk8LoBf-2" value="" style="verticalLabelPosition=bottom;shadow=0;dashed=0;align=center;html=1;verticalAlign=top;strokeWidth=1;shape=mxgraph.mockup.navigation.coverFlow;strokeColor=#999999;" vertex="1" parent="1">
+          <mxGeometry x="40" y="290" width="800" height="440" as="geometry" />
         </mxCell>
-        <mxCell id="4fn5vu_Aj_78YFk8LoBf-1" value="" style="verticalLabelPosition=bottom;shadow=0;dashed=0;align=center;html=1;verticalAlign=top;strokeWidth=1;shape=mxgraph.mockup.navigation.coverFlow;strokeColor=#999999;" vertex="1" parent="G0vkxuDNQqhEIHFCdH5S-2">
-          <mxGeometry x="-280" y="-20" width="805" height="402.5" as="geometry" />
+        <mxCell id="4fn5vu_Aj_78YFk8LoBf-3" value="" style="html=1;shadow=0;dashed=0;shape=mxgraph.bootstrap.rrect;rSize=5;strokeColor=#DFDFDF;html=1;whiteSpace=wrap;fillColor=#ffffff;fontColor=#000000;verticalAlign=bottom;align=left;spacing=20;spacingBottom=130;fontSize=14;container=1;" vertex="1" parent="1">
+          <mxGeometry x="310" y="300" width="260" height="420" as="geometry" />
         </mxCell>
-        <mxCell id="G0vkxuDNQqhEIHFCdH5S-3" value="Image cap" style="html=1;shadow=0;dashed=0;shape=mxgraph.bootstrap.topButton;rSize=5;perimeter=none;whiteSpace=wrap;fillColor=#868E96;strokeColor=#DFDFDF;fontColor=#DEE2E6;resizeWidth=1;fontSize=18;" parent="G0vkxuDNQqhEIHFCdH5S-2" vertex="1">
-          <mxGeometry width="250" height="140" relative="1" as="geometry" />
+        <mxCell id="4fn5vu_Aj_78YFk8LoBf-4" value="Image cap" style="html=1;shadow=0;dashed=0;shape=mxgraph.bootstrap.topButton;rSize=5;perimeter=none;whiteSpace=wrap;fillColor=#868E96;strokeColor=#DFDFDF;fontColor=#DEE2E6;resizeWidth=1;fontSize=18;" vertex="1" parent="4fn5vu_Aj_78YFk8LoBf-3">
+          <mxGeometry width="260" height="140" relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="G0vkxuDNQqhEIHFCdH5S-4" value="&lt;b&gt;&lt;font style=&quot;font-size: 20px&quot;&gt;Question #&lt;/font&gt;&lt;/b&gt;&lt;br style=&quot;font-size: 14px&quot;&gt;&lt;br style=&quot;font-size: 14px&quot;&gt;Here is the question. Such as do you prefer wine or beer?" style="perimeter=none;html=1;whiteSpace=wrap;fillColor=none;strokeColor=none;resizeWidth=1;verticalAlign=top;align=left;spacing=20;spacingTop=-10;fontSize=14;" parent="G0vkxuDNQqhEIHFCdH5S-2" vertex="1">
-          <mxGeometry width="250" height="120" relative="1" as="geometry">
+        <mxCell id="4fn5vu_Aj_78YFk8LoBf-5" value="&lt;b&gt;&lt;font style=&quot;font-size: 20px&quot;&gt;Question #&lt;/font&gt;&lt;/b&gt;&lt;br style=&quot;font-size: 14px&quot;&gt;&lt;br style=&quot;font-size: 14px&quot;&gt;Here is the question. Such as do you prefer wine or beer?" style="perimeter=none;html=1;whiteSpace=wrap;fillColor=none;strokeColor=none;resizeWidth=1;verticalAlign=top;align=left;spacing=20;spacingTop=-10;fontSize=14;" vertex="1" parent="4fn5vu_Aj_78YFk8LoBf-3">
+          <mxGeometry width="260" height="120" relative="1" as="geometry">
             <mxPoint x="-1" y="160" as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="G0vkxuDNQqhEIHFCdH5S-8" value="Home" style="html=1;shadow=0;dashed=0;shape=mxgraph.bootstrap.rrect;rSize=5;perimeter=none;whiteSpace=wrap;fillColor=none;strokeColor=none;fontColor=#0085FC;resizeWidth=1;fontSize=14;align=center;" parent="G0vkxuDNQqhEIHFCdH5S-2" vertex="1">
-          <mxGeometry y="1" width="80" height="40" relative="1" as="geometry">
+        <mxCell id="4fn5vu_Aj_78YFk8LoBf-6" value="Home" style="html=1;shadow=0;dashed=0;shape=mxgraph.bootstrap.rrect;rSize=5;perimeter=none;whiteSpace=wrap;fillColor=none;strokeColor=none;fontColor=#0085FC;resizeWidth=1;fontSize=14;align=center;" vertex="1" parent="4fn5vu_Aj_78YFk8LoBf-3">
+          <mxGeometry y="1" width="83.2" height="40" relative="1" as="geometry">
             <mxPoint x="10" y="-50" as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="G0vkxuDNQqhEIHFCdH5S-9" value="Next" style="html=1;shadow=0;dashed=0;shape=mxgraph.bootstrap.rrect;rSize=5;perimeter=none;whiteSpace=wrap;fillColor=none;strokeColor=none;fontColor=#0085FC;resizeWidth=1;fontSize=14;align=center;" parent="G0vkxuDNQqhEIHFCdH5S-2" vertex="1">
-          <mxGeometry y="1" width="100" height="40" relative="1" as="geometry">
+        <mxCell id="4fn5vu_Aj_78YFk8LoBf-7" value="Next" style="html=1;shadow=0;dashed=0;shape=mxgraph.bootstrap.rrect;rSize=5;perimeter=none;whiteSpace=wrap;fillColor=none;strokeColor=none;fontColor=#0085FC;resizeWidth=1;fontSize=14;align=center;" vertex="1" parent="4fn5vu_Aj_78YFk8LoBf-3">
+          <mxGeometry y="1" width="104" height="40" relative="1" as="geometry">
             <mxPoint x="140" y="-50" as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="G0vkxuDNQqhEIHFCdH5S-1" value="How do you rate this question?" style="html=1;shadow=0;dashed=0;shape=mxgraph.bootstrap.rangeInput;dx=0.78;strokeColor=#9D968E;fillColor=#E3DDD8;fontColor=#777777;whiteSpace=wrap;align=left;verticalAlign=bottom;fontStyle=0;fontSize=14;labelPosition=center;verticalLabelPosition=top;gradientColor=#F4F2EF;gradientDirection=north;rangeStyle=rect;handleStyle=rect;" parent="G0vkxuDNQqhEIHFCdH5S-2" vertex="1">
-          <mxGeometry x="10" y="370" width="230" height="20" as="geometry" />
+        <mxCell id="4fn5vu_Aj_78YFk8LoBf-8" value="How do you rate this question?" style="html=1;shadow=0;dashed=0;shape=mxgraph.bootstrap.rangeInput;dx=0.78;strokeColor=#9D968E;fillColor=#E3DDD8;fontColor=#777777;whiteSpace=wrap;align=left;verticalAlign=bottom;fontStyle=0;fontSize=14;labelPosition=center;verticalLabelPosition=top;gradientColor=#F4F2EF;gradientDirection=north;rangeStyle=rect;handleStyle=rect;" vertex="1" parent="4fn5vu_Aj_78YFk8LoBf-3">
+          <mxGeometry x="10.4" y="345.33333333333337" width="239.20000000000002" height="18.666666666666664" as="geometry" />
         </mxCell>
-        <mxCell id="G0vkxuDNQqhEIHFCdH5S-10" value="Readonly input here..." style="html=1;shadow=0;dashed=0;shape=mxgraph.bootstrap.rrect;rSize=5;strokeColor=#CED4DA;strokeWidth=1;fillColor=#E9ECEF;fontColor=#505050;whiteSpace=wrap;align=left;verticalAlign=middle;spacingLeft=10;fontSize=14;" parent="G0vkxuDNQqhEIHFCdH5S-2" vertex="1">
-          <mxGeometry x="10" y="270" width="230" height="40" as="geometry" />
+        <mxCell id="4fn5vu_Aj_78YFk8LoBf-9" value="Readonly input here..." style="html=1;shadow=0;dashed=0;shape=mxgraph.bootstrap.rrect;rSize=5;strokeColor=#CED4DA;strokeWidth=1;fillColor=#E9ECEF;fontColor=#505050;whiteSpace=wrap;align=left;verticalAlign=middle;spacingLeft=10;fontSize=14;" vertex="1" parent="4fn5vu_Aj_78YFk8LoBf-3">
+          <mxGeometry x="10.4" y="252" width="239.20000000000002" height="37.33333333333333" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
