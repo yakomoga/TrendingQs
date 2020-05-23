@@ -15,6 +15,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      answer: { text: "", userid: "", qid: "", quiz_id: "" },
       text: "This is a test question?",
       twurl: "",
       id: "",
@@ -31,6 +32,26 @@ class App extends Component {
       .then((response) => {
         this.setState({ questions: response });
       });
+    //to try later
+    /* var raw = "";
+
+var requestOptions = {
+  method: 'GET',
+  body: raw,
+  redirect: 'follow'
+};
+
+fetch("http://localhost:5000/questions/?n=5", requestOptions)
+  .then(response => response.text())
+  .then(result => console.log(result))
+  .catch(error => console.log('error', error));
+
+  */
+  };
+
+  //answer handler in the quiz
+  handleAnswer = () => {
+    this.setState();
   };
 
   //trigger modal
@@ -150,7 +171,7 @@ class App extends Component {
             <img
               src="https://cdn-a.william-reed.com/var/wrbm_gb_food_pharma/storage/images/publications/food-beverage-nutrition/foodnavigator.com/news/market-trends/jellyfish-a-new-sustainable-nutritious-and-oyster-like-food-for-the-western-world/9974704-1-eng-GB/Jellyfish-A-new-sustainable-nutritious-and-oyster-like-food-for-the-Western-world_wrbm_large.jpg"
               className="card-img-top"
-              alt="..."
+              alt="jellyfish"
             />
             <div className="card-body">
               <h5 className="card-title">Question {this.state.id}</h5>
@@ -158,24 +179,26 @@ class App extends Component {
             </div>
             <ul className="list-group list-group-flush">
               <li className="list-group-item">
-                <div class="input-group">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text">Your answer</span>
+                <div className="input-group">
+                  <div className="input-group-prepend">
+                    <span className="input-group-text">Your answer</span>
                   </div>
                   <textarea
-                    class="form-control"
+                    className="form-control"
                     aria-label="With textarea"
+                    onChange={this.handleAnswer}
+                    value={this.state.answer.text}
                   ></textarea>
                 </div>
               </li>
               <li className="list-group-item">
-                <div class="form-group">
+                <div className="form-group">
                   <label for="formControlRange">
                     How do you rate this question?
                   </label>
                   <input
                     type="range"
-                    class="form-control-range"
+                    className="form-control-range"
                     id="formControlRange"
                   />
                 </div>
