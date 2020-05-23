@@ -14,12 +14,12 @@ https://app.dbdesigner.net/designer/schema/330364
 ### Dependencies
 
 - Run `npm install` in project directory. This will install server-related dependencies such as `express`.
-- `cd client` and run `npm install`. This will install client dependencies (React). Also you need to run `npm install twit` to install the Twitter library for the Twitter API calls.
+- `cd client` and run `npm install`. This will install client dependencies (React). Also you need to run `npm install twit` to install the Twitter library for the Twitter API calls. Also you need to run `npm install react-bootstrap bootstrap` and `npm install styled-components` for some elements that I've used in the fromt end.
 
 ### Database Prep
 
 - Access the MySQL interface in your terminal by running `mysql -u root -p`
-- Create a new database called TrendingQs: `create database TrendingQs`
+- Create a new database called TrendingQs: `create database trending`
 - Add a `.env` file to the main folder of this repository containing the MySQL authentication information for MySQL user. For example:
 
 ```bash
@@ -31,7 +31,7 @@ https://app.dbdesigner.net/designer/schema/330364
 
 - Run `npm run migrate` in the main folder of this repository, in a new terminal window. This will create a table called 'students' in your database.
 
-- Make sure you understand how the `students` table is constructed. In your MySQL console, you can run `use TrendingQs;` and then `describe questions;` to see the structure of the questions table.
+- Make sure you understand how the `questions` table is constructed. In your MySQL console, you can run `use trending;` and then `describe questions;` to see the structure of the questions table.
 
 ### Development
 

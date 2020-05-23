@@ -3,6 +3,8 @@ import ReactDOM from "react-dom";
 import styled, { keyframes } from "styled-components";
 import "./App.css";
 import { ReactComponent as EmojiSmile } from "./emoji-smile.svg";
+import Modal from "react-bootstrap/Modal";
+import Button from "react-bootstrap/Button";
 
 const StyledSVG = styled(EmojiSmile)`
   display: block;
@@ -15,15 +17,28 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      rating: { value: 50.0, userid: "", qid: "", quiz_id: "" },
       answer: { text: "", userid: "", qid: "", quiz_id: "" },
       text: "This is a test question?",
       twurl: "",
       id: "",
       timestamp: "",
       n: 20,
+      count: 0,
+      show: false,
       questions: [],
+      answers: [],
+      ratings: [],
     };
   }
+
+  handleshow = () => {
+    this.setState({ show: true });
+  };
+
+  handleClose = () => {
+    this.setState({ show: false });
+  };
 
   //fetch request for the questions in the quiz
   getQuestions = (n) => {
@@ -31,7 +46,15 @@ class App extends Component {
       .then((response) => response.json())
       .then((response) => {
         this.setState({ questions: response });
+        this.setState({
+          text: this.questions[0].text,
+          id: this.questions[0].id,
+          twurl: this.questions[0].twurl,
+          timestamp: this.questions[0].timestamp,
+          count: this.state.count++,
+        });
       });
+    this.handleClose();
     //to try later
     /* var raw = "";
 
@@ -48,14 +71,35 @@ fetch("http://localhost:5000/questions/?n=5", requestOptions)
 
   */
   };
-
   //answer handler in the quiz
-  handleAnswer = () => {
-    this.setState();
+  handleAnswer = (e) => {
+    let answer = { ...this.state.answer, text: e.target.value };
+    this.setState({ answer });
+  };
+  //rating handler in the quiz
+  handleRating = (e) => {
+    let { value } = this.state.rating;
+    this.setState({ value: e.target.value });
+  };
+  //handler to move onto the next question
+  handleNext = () => {
+    let { answer, rating, count } = this.state;
+    count++;
+    this.setState({ count });
+    let answers = { ...this.state.answers, answer };
+    this.setState({ answers });
+    let ratings = { ...this.state.ratings, rating };
+    this.setState({ ratings });
+    this.setState({
+      text: this.questions[count].text,
+      id: this.questions[count].id,
+      twurl: this.questions[count].twurl,
+      timestamp: this.questions[count].timestamp,
+    });
   };
 
-  //trigger modal
-  startGame() {}
+  //open new browsing tab to twurl
+  gotoTwitter = () => {};
 
   render() {
     return (
@@ -99,11 +143,7 @@ fetch("http://localhost:5000/questions/?n=5", requestOptions)
                 </a>
               </li>
               <li className="nav-item">
-                <button
-                  className="btn btn-primary"
-                  data-toggle="modal"
-                  data-target="#myModal"
-                >
+                <button className="btn btn-primary" onClick={this.handleshow}>
                   New Game
                 </button>
               </li>
@@ -125,44 +165,24 @@ fetch("http://localhost:5000/questions/?n=5", requestOptions)
           </div>
         </nav>
 
-        <div
-          className="modal fade"
-          id="myModal"
-          tabindex="-1"
-          role="dialog"
-          aria-labelledby="myModalLabel"
+        <Modal
+          show={this.state.show}
+          onHide={this.handleClose}
+          animation={false}
         >
-          <div className="modal-dialog" role="document">
-            <div className="modal-content">
-              <div className="modal-header">
-                <button
-                  type="button"
-                  class="close"
-                  data-dismiss="modal"
-                  aria-label="Close"
-                >
-                  <span aria-hidden="true">&times;</span>
-                </button>
-                <h4 className="modal-title" id="myModalLabel">
-                  Modal title
-                </h4>
-              </div>
-              <div className="modal-body">...</div>
-              <div className="modal-footer">
-                <button
-                  type="button"
-                  className="btn btn-default"
-                  data-dismiss="modal"
-                >
-                  Close
-                </button>
-                <button type="button" className="btn btn-primary">
-                  Save changes
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
+          <Modal.Header closeButton>
+            <Modal.Title>Create your Quiz:</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>Choose a name for your quiz:</Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={this.handleClose}>
+              Quit
+            </Button>
+            <Button variant="primary" onClick={this.getQuestions}>
+              Start
+            </Button>
+          </Modal.Footer>
+        </Modal>
         <br></br>
         <br></br>
 
@@ -193,22 +213,27 @@ fetch("http://localhost:5000/questions/?n=5", requestOptions)
               </li>
               <li className="list-group-item">
                 <div className="form-group">
-                  <label for="formControlRange">
+                  <label htmlFor="formControlRange">
                     How do you rate this question?
                   </label>
                   <input
                     type="range"
                     className="form-control-range"
                     id="formControlRange"
+                    defaultValue={this.state.rating.value}
+                    onChange={this.handleRating}
                   />
                 </div>
               </li>
             </ul>
             <div className="card-body">
               <StyledSVG />
-              <i className="lni lni-emoji-smile"></i>
-              <button className="btn btn-outline">View on Twitter</button>
-              <button className="btn btn-primary">Next</button>
+              <button className="btn btn-outline" onClick={this.gotoTwitter}>
+                View on Twitter
+              </button>
+              <button className="btn btn-primary" onClick={this.handleNext}>
+                Next
+              </button>
             </div>
           </div>
         </div>
