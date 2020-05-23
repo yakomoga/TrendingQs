@@ -7,8 +7,8 @@ import { ReactComponent as EmojiSmile } from "./emoji-smile.svg";
 const StyledSVG = styled(EmojiSmile)`
   display: block;
   margin: auto;
-  width: 25em;
-  height: 25em;
+  width: 2em;
+  height: 2em;
 `;
 
 class App extends Component {
@@ -23,6 +23,18 @@ class App extends Component {
       questions: [],
     };
   }
+
+  //fetch request for the questions in the quiz
+  getQuestions = (n) => {
+    fetch(`/questions/?n=${n}`)
+      .then((response) => response.json())
+      .then((response) => {
+        this.setState({ questions: response });
+      });
+  };
+
+  //trigger modal
+  startGame() {}
 
   render() {
     return (
@@ -66,7 +78,13 @@ class App extends Component {
                 </a>
               </li>
               <li className="nav-item">
-                <button className="btn btn-primary">New Game</button>
+                <button
+                  className="btn btn-primary"
+                  data-toggle="modal"
+                  data-target="#myModal"
+                >
+                  New Game
+                </button>
               </li>
             </ul>
             <form className="form-inline my-2 my-lg-0">
@@ -85,6 +103,45 @@ class App extends Component {
             </form>
           </div>
         </nav>
+
+        <div
+          className="modal fade"
+          id="myModal"
+          tabindex="-1"
+          role="dialog"
+          aria-labelledby="myModalLabel"
+        >
+          <div className="modal-dialog" role="document">
+            <div className="modal-content">
+              <div className="modal-header">
+                <button
+                  type="button"
+                  class="close"
+                  data-dismiss="modal"
+                  aria-label="Close"
+                >
+                  <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 className="modal-title" id="myModalLabel">
+                  Modal title
+                </h4>
+              </div>
+              <div className="modal-body">...</div>
+              <div className="modal-footer">
+                <button
+                  type="button"
+                  className="btn btn-default"
+                  data-dismiss="modal"
+                >
+                  Close
+                </button>
+                <button type="button" className="btn btn-primary">
+                  Save changes
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
         <br></br>
         <br></br>
 
