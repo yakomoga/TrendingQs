@@ -1,5 +1,15 @@
 import React, { Component } from "react";
+import ReactDOM from "react-dom";
+import styled, { keyframes } from "styled-components";
 import "./App.css";
+import { ReactComponent as EmojiSmile } from "./emoji-smile.svg";
+
+const StyledSVG = styled(EmojiSmile)`
+  display: block;
+  margin: auto;
+  width: 25em;
+  height: 25em;
+`;
 
 class App extends Component {
   constructor(props) {
@@ -77,7 +87,7 @@ class App extends Component {
         </nav>
         <br></br>
         <br></br>
-        <br></br>
+
         <div className="container text-center">
           <div className="card w-50">
             <img
@@ -115,6 +125,8 @@ class App extends Component {
               </li>
             </ul>
             <div className="card-body">
+              <StyledSVG />
+              <i className="lni lni-emoji-smile"></i>
               <button className="btn btn-outline">View on Twitter</button>
               <button className="btn btn-primary">Next</button>
             </div>
