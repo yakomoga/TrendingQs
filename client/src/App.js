@@ -18,8 +18,8 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      rating: { value: 50.0, userid: "", qid: "", quiz_id: "" },
-      answer: { text: "", userid: "", qid: "", quiz_id: "" },
+      rating: { value: 50.0, userid: "1", qid: "" },
+      answer: { text: "", userid: "1", qid: "" },
       text: "This is a test question?",
       twurl: "",
       id: "",
@@ -43,20 +43,22 @@ class App extends Component {
   };
 
   //fetch request for the questions in the quiz
+  //need to debug the access to the nested objects and the way of increenting count
   getQuestions = () => {
-    let { n } = this.state;
+    let { n, count } = this.state;
     let request = `/questions/?n=${n}`;
-    console.log(request);
+    count++;
     fetch(request)
       .then((response) => response.json())
       .then((response) => {
         this.setState({ questions: response });
+        console.log(this.state.questions);
         this.setState({
-          text: this.questions[0].text,
-          id: this.questions[0].id,
-          twurl: this.questions[0].twurl,
-          timestamp: this.questions[0].timestamp,
-          count: this.state.count++,
+          text: this.state.questions[0].text,
+          id: this.state.questions[0].id,
+          twurl: this.state.questions[0].twurl,
+          timestamp: this.state.questions[0].timestamp,
+          count,
         });
       });
     this.handleClose();
@@ -89,18 +91,30 @@ fetch("http://localhost:5000/questions/?n=5", requestOptions)
   //handler to move onto the next question
   handleNext = () => {
     let { answer, rating, count } = this.state;
-    count++;
-    this.setState({ count });
-    let answers = { ...this.state.answers, answer };
-    this.setState({ answers });
-    let ratings = { ...this.state.ratings, rating };
-    this.setState({ ratings });
-    this.setState({
-      text: this.questions[count].text,
-      id: this.questions[count].id,
-      twurl: this.questions[count].twurl,
-      timestamp: this.questions[count].timestamp,
-    });
+    if (count === this.state.n) {
+      //I need to do something else in here
+      return;
+    } else {
+      count++;
+      answer = { ...this.state.answer, qid: this.state.id };
+      this.setState({ answer });
+      rating = { ...this.state.rating, qid: this.state.id };
+      this.setState({ rating });
+      this.setState({ count });
+      let answers = { ...this.state.answers, answer };
+      this.setState({ answers });
+      let ratings = { ...this.state.ratings, rating };
+      this.setState({ ratings });
+      this.setState({
+        answers,
+        ratings,
+        text: this.state.questions[count].text,
+        id: this.state.questions[count].id,
+        twurl: this.state.questions[count].twurl,
+        timestamp: this.state.questions[count].timestamp,
+        count,
+      });
+    }
   };
   //update the value of n from user input
   handleN = (e) => {
@@ -195,18 +209,28 @@ fetch("http://localhost:5000/questions/?n=5", requestOptions)
             </Modal.Header>
             <Modal.Body>
               <div>
-                <input
-                  className="form-control"
-                  aria-label="With textarea"
-                  onChange={this.handleQuizName}
-                  value={this.state.qname}
-                />
-                <input
-                  className="form-control"
-                  aria-label="With textarea"
-                  onChange={this.handleN}
-                  value={this.state.n}
-                />
+                <ul className="list-group list-group-flush">
+                  <li className="list-group-item">
+                    <label>Quiz Name:</label>
+                    <input
+                      className="form-control"
+                      aria-label="With textarea"
+                      placeholder="Enter a name for your quiz"
+                      onChange={this.handleQuizName}
+                      value={this.state.qname}
+                    />
+                  </li>
+                  <li className="list-group-item">
+                    <label>Number of Questions:</label>
+                    <input
+                      className="form-control"
+                      aria-label="With textarea"
+                      placeholder="20"
+                      onChange={this.handleN}
+                      value={this.state.n}
+                    />
+                  </li>
+                </ul>
               </div>
             </Modal.Body>
             <Modal.Footer>
@@ -221,7 +245,7 @@ fetch("http://localhost:5000/questions/?n=5", requestOptions)
           <br></br>
           <br></br>
 
-          <div className="container text-center">
+          <div className="App container text-center">
             <div className="card w-50">
               <img
                 src="https://cdn-a.william-reed.com/var/wrbm_gb_food_pharma/storage/images/publications/food-beverage-nutrition/foodnavigator.com/news/market-trends/jellyfish-a-new-sustainable-nutritious-and-oyster-like-food-for-the-western-world/9974704-1-eng-GB/Jellyfish-A-new-sustainable-nutritious-and-oyster-like-food-for-the-Western-world_wrbm_large.jpg"
@@ -229,7 +253,7 @@ fetch("http://localhost:5000/questions/?n=5", requestOptions)
                 alt="jellyfish"
               />
               <div className="card-body">
-                <h5 className="card-title">Question {this.state.id}</h5>
+                <h5 className="card-title">Question {this.state.count - 1}</h5>
                 <p className="card-text">{this.state.text}</p>
               </div>
               <ul className="list-group list-group-flush">
