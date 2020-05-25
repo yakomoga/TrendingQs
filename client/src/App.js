@@ -90,7 +90,7 @@ fetch("http://localhost:5000/questions/?n=5", requestOptions)
   };
   //handler to move onto the next question
   handleNext = () => {
-    let { answer, rating, count } = this.state;
+    let { answer, rating, count, ratings, answers } = this.state;
     if (count === this.state.n) {
       //I need to do something else in here
       return;
@@ -101,10 +101,10 @@ fetch("http://localhost:5000/questions/?n=5", requestOptions)
       rating = { ...this.state.rating, qid: this.state.id };
       this.setState({ rating });
       this.setState({ count });
-      let answers = { ...this.state.answers, answer };
-      this.setState({ answers });
-      let ratings = { ...this.state.ratings, rating };
-      this.setState({ ratings });
+      answers = { ...this.state.answers, answer };
+      //this.setState({ answers });
+      ratings = { ...this.state.ratings, rating };
+      //this.setState({ ratings });
       this.setState({
         answers,
         ratings,
@@ -253,7 +253,7 @@ fetch("http://localhost:5000/questions/?n=5", requestOptions)
                 alt="jellyfish"
               />
               <div className="card-body">
-                <h5 className="card-title">Question {this.state.count - 1}</h5>
+                <h5 className="card-title">Question {this.state.count}</h5>
                 <p className="card-text">{this.state.text}</p>
               </div>
               <ul className="list-group list-group-flush">
