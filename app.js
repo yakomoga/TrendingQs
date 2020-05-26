@@ -16,8 +16,14 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/", indexRouter);
-//use thee router created to fetch the questions
+//use the router created to fetch the questions
 app.use("/questions", questionsRouter);
+//use the router created to fetch the answers
+app.use("/answers", answersRouter);
+//use the router created to fetch the ratings
+app.use("/ratings", ratingsRouter);
+//use the router created to fetch the quizzes
+app.use("/quizzes", quizzesRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
