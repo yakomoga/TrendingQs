@@ -22,15 +22,14 @@ con.connect(function (err) {
 
 
 DROP TABLE question_types;
-DROP TABLE assessments;
-DROP TABLE done_assessments;
+DROP TABLE answers;
 DROP TABLE quizzes;
 DROP TABLE users;
 DROP TABLE quizzes_questions;
 DROP TABLE multiple_choice_answers;
 DROP TABLE question_answers;
 DROP TABLE scale_ranges;
-DROP TABLE user_ratings;
+DROP TABLE ratings;
 
 
 CREATE TABLE questions (
@@ -48,10 +47,11 @@ CREATE TABLE question_types (
 	PRIMARY KEY (id)
 );
 
-CREATE TABLE assessments (
+CREATE TABLE answers (
 	id INT NOT NULL AUTO_INCREMENT,
-	title VARCHAR(255),
-	description VARCHAR(255),
+	text VARCHAR(255),
+	qid INT,
+	userid INT NOT NULL,
 	PRIMARY KEY (id)
 );
 
@@ -109,10 +109,10 @@ CREATE TABLE users (
 	PRIMARY KEY (id)
 );
 
-CREATE TABLE user_ratings (
+CREATE TABLE ratings (
 	id INT NOT NULL AUTO_INCREMENT,
-	question_id INT NOT NULL,
-	user_id INT NOT NULL,
+	qid INT NOT NULL,
+	userid INT NOT NULL,
 	value DECIMAL NOT NULL,
 	PRIMARY KEY (id)
 );
@@ -124,7 +124,7 @@ CREATE TABLE quizzes_questions (
 	PRIMARY KEY (id)
 );
 
-ALTER TABLE done_assessments ADD CONSTRAINT done_assessments_fk0 FOREIGN KEY (assessment_id) REFERENCES assessments(id);
+ALTER TABLE done_assessments ADD CONSTRAINT done_assessments_fk0 FOREIGN KEY (assessment_id) REFERENCES answers(id);
 
 ALTER TABLE multiple_choice_answers ADD CONSTRAINT multiple_choice_answers_fk0 FOREIGN KEY (question_id) REFERENCES questions(id);
 
@@ -138,19 +138,19 @@ ALTER TABLE scale_ranges ADD CONSTRAINT scale_ranges_fk0 FOREIGN KEY (question_i
 
 ALTER TABLE quizzes ADD CONSTRAINT quizzes_fk0 FOREIGN KEY (user_id) REFERENCES users(id);
 
-ALTER TABLE user_ratings ADD CONSTRAINT user_ratings_fk0 FOREIGN KEY (question_id) REFERENCES questions(id);
-
-ALTER TABLE user_ratings ADD CONSTRAINT user_ratings_fk1 FOREIGN KEY (user_id) REFERENCES users(id);
+ALTER TABLE ratings ADD CONSTRAINT ratings_fk0 FOREIGN KEY (qid) REFERENCES questions(id);
 
 ALTER TABLE quizzes_questions ADD CONSTRAINT quizzes_questions_fk0 FOREIGN KEY (quiz_id) REFERENCES quizzes(id);
 
 ALTER TABLE quizzes_questions ADD CONSTRAINT quizzes_questions_fk1 FOREIGN KEY (question_id) REFERENCES questions(id);
 
+
+
 `;
 
   con.query(sql, function (err, result) {
     if (err) throw err;
-    console.log("Table creation `students` was successful!");
+    console.log("Table creation `questions` was successful!");
 
     console.log("Closing...");
   });
