@@ -11,6 +11,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      userid: "1",
       complete: null,
       rating: { value: 50.0, userid: "1", qid: "" },
       answer: { text: "", userid: "1", qid: "" },
@@ -39,6 +40,16 @@ class App extends Component {
     this.setState({
       [name]: value,
     });
+  };
+  //answer handler in the quiz
+  handleAnswer = (e) => {
+    let answer = { ...this.state.answer, text: e.target.value };
+    this.setState({ answer });
+  };
+  //rating handler in the quiz
+  handleRating = (e) => {
+    let { value } = this.state.rating;
+    this.setState({ value: e.target.value });
   };
   //fetch request for the questions in the quiz
   //need to debug the access to the nested objects and the way of increenting count
@@ -88,14 +99,24 @@ fetch("http://localhost:5000/questions/?n=5", requestOptions)
         count: 0,
         complete: true,
       });
-      console.log("Reached limit");
+      console.log("End of Quiz!");
       return;
     } else {
       count++;
       answer = { ...this.state.answer, qid: this.state.id };
       rating = { ...this.state.rating, qid: this.state.id };
+      console.log(
+        `These are the values to be stored for question ${
+          count + 1
+        }: answer: ${answer}, rating: ${rating}`
+      );
       answers = [...this.state.answers, answer];
       ratings = [...this.state.ratings, rating];
+      console.log(
+        `These are the values to be stored in the arrays for question ${
+          count + 1
+        }: answers: ${answers}, rating: ${ratings}`
+      );
       this.setState({
         answer,
         rating,
@@ -111,20 +132,15 @@ fetch("http://localhost:5000/questions/?n=5", requestOptions)
   };
   //send a fetch request to the server to post the results of the quiz
   postAnswers = () => {
-    let { answers } = this.state;
-    let body = JSON.stringify(answers);
-    console.log(body);
-    fetch(`/answers`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body,
-    }).then((response) => response.json());
-    let { ratings } = this.state;
-    body = JSON.stringify(ratings);
-    console.log(body);
-    fetch(`/ratings`, {
+    let { answers, ratings, questions, qname, userid } = this.state;
+    let answer = { ...this.state.answer, qid: this.state.id };
+    let rating = { ...this.state.rating, qid: this.state.id };
+    answers = [...this.state.answers, answer];
+    ratings = [...this.state.ratings, rating];
+
+    let body = JSON.stringify({ answers, ratings, questions, qname, userid });
+    console.log("Here's the body: ", body);
+    fetch(`/quizzes`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -148,10 +164,13 @@ fetch("http://localhost:5000/questions/?n=5", requestOptions)
           ></InitModal>
           <br></br>
           <br></br>
+
           <GameCard
             handleNext={this.handleNext}
             gotoTwitter={this.gotoTwitter}
             handleInput={this.handleInput}
+            handleAnswer={this.handleAnswer}
+            handleRating={this.handleRating}
             rating={this.state.rating}
             answer={this.state.answer}
             text={this.state.text}

@@ -12,6 +12,10 @@ const StyledSVG = styled(EmojiSmile)`
 class GameCard extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      rating: this.props.rating,
+      answer: this.props.answer,
+    };
   }
 
   render() {
@@ -37,7 +41,7 @@ class GameCard extends Component {
                   name="answer"
                   className="form-control"
                   aria-label="With textarea"
-                  onChange={this.props.handleInput}
+                  onChange={this.props.handleAnswer}
                   value={this.props.answer.text}
                 ></textarea>
               </div>
@@ -53,7 +57,7 @@ class GameCard extends Component {
                   className="form-control-range"
                   id="formControlRange"
                   defaultValue={this.props.rating.value}
-                  onChange={this.props.handleInput}
+                  onChange={this.props.handleRating}
                 />
               </div>
             </li>

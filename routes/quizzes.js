@@ -21,14 +21,29 @@ router.get("/", function (req, res, next) {
 
 // INSERT a new quizz into the DB
 router.post("/", function (req, res, next) {
+  const { answers, ratings, questions, qname, userid } = req.body;
   //your code here
   db(
-    `INSERT INTO quizzes (userid, quiz_name) VALUES ( "${req.body.userid}", "${req.body.name}");`
+    `INSERT INTO quizzes (user_id, quiz_name) VALUES ( "${userid}", "${qname}");`
   )
     .then((results) => {
-      db("SELECT * FROM quizzes;")
+      db("SELECT id FROM quizzes ORDER BY id DESC LIMIT 1;")
         .then((results) => {
-          res.send(results.data);
+          const quiz_id = results.data[0].id;
+          for (let i = 0; i < questions.length; i++) {
+            db(
+              `INSERT INTO answers (userid, quiz_id, qid, text) VALUES ( "${userid}", "${quiz_id}", "${questions[i].id}", "${answers[i].text}"); INSERT INTO ratings (userid, quiz_id, qid, value) VALUES ( "${userid}", "${quiz_id}", "${questions[i].id}", "${ratings[i].value}"); INSERT INTO quizzes_questions (quiz_id, question_id) VALUES ( "${quiz_id}", "${questions[i].id}");`
+            )
+              .then((results) => {
+                console.log(
+                  "Here are the POST into answers, ratings and quizzes results: ",
+                  results.data
+                );
+
+                res.send(results.data);
+              })
+              .catch((err) => res.status(500).send(err));
+          }
         })
         .catch((err) => res.status(500).send(err));
     })
