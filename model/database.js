@@ -41,53 +41,11 @@ CREATE TABLE questions (
 	PRIMARY KEY (id)
 );
 
-CREATE TABLE question_types (
-	id INT NOT NULL AUTO_INCREMENT,
-	name VARCHAR(255),
-	PRIMARY KEY (id)
-);
-
 CREATE TABLE answers (
 	id INT NOT NULL AUTO_INCREMENT,
 	text VARCHAR(255),
 	qid INT,
 	userid INT NOT NULL,
-	PRIMARY KEY (id)
-);
-
-CREATE TABLE done_assessments (
-	done_assessment_id INT NOT NULL AUTO_INCREMENT,
-	assessment_id INT,
-	date TIMESTAMP,
-	PRIMARY KEY (done_assessment_id)
-);
-
-CREATE TABLE multiple_choice_answers (
-	id INT NOT NULL AUTO_INCREMENT,
-	question_id INT,
-	content TEXT,
-	order_position INT,
-	is_correct BOOLEAN,
-	PRIMARY KEY (id)
-);
-
-CREATE TABLE question_answers (
-	id INT NOT NULL AUTO_INCREMENT,
-	question_id INT,
-	scale_answer DECIMAL,
-	multiple_choice_answer_id INT,
-	open_ended_answer TEXT,
-	done_assessments_id INT,
-	binary_answer BINARY NOT NULL,
-	checklist_answer varchar(255) NOT NULL,
-	PRIMARY KEY (id)
-);
-
-CREATE TABLE scale_ranges (
-	id INT NOT NULL AUTO_INCREMENT,
-	question_id INT,
-	lower_limit DECIMAL,
-	upper_limit DECIMAL,
 	PRIMARY KEY (id)
 );
 
@@ -123,26 +81,6 @@ CREATE TABLE quizzes_questions (
 	question_id INT NOT NULL,
 	PRIMARY KEY (id)
 );
-
-ALTER TABLE done_assessments ADD CONSTRAINT done_assessments_fk0 FOREIGN KEY (assessment_id) REFERENCES answers(id);
-
-ALTER TABLE multiple_choice_answers ADD CONSTRAINT multiple_choice_answers_fk0 FOREIGN KEY (question_id) REFERENCES questions(id);
-
-ALTER TABLE question_answers ADD CONSTRAINT question_answers_fk0 FOREIGN KEY (question_id) REFERENCES questions(id);
-
-ALTER TABLE question_answers ADD CONSTRAINT question_answers_fk1 FOREIGN KEY (multiple_choice_answer_id) REFERENCES multiple_choice_answers(id);
-
-ALTER TABLE question_answers ADD CONSTRAINT question_answers_fk2 FOREIGN KEY (done_assessments_id) REFERENCES done_assessments(done_assessments_id);
-
-ALTER TABLE scale_ranges ADD CONSTRAINT scale_ranges_fk0 FOREIGN KEY (question_id) REFERENCES questions(id);
-
-ALTER TABLE quizzes ADD CONSTRAINT quizzes_fk0 FOREIGN KEY (user_id) REFERENCES users(id);
-
-ALTER TABLE ratings ADD CONSTRAINT ratings_fk0 FOREIGN KEY (qid) REFERENCES questions(id);
-
-ALTER TABLE quizzes_questions ADD CONSTRAINT quizzes_questions_fk0 FOREIGN KEY (quiz_id) REFERENCES quizzes(id);
-
-ALTER TABLE quizzes_questions ADD CONSTRAINT quizzes_questions_fk1 FOREIGN KEY (question_id) REFERENCES questions(id);
 
 
 
