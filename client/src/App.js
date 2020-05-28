@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import ReactDOM from "react-dom";
+//import ReactDOM from "react-dom";
 import GameCard from "./components/GameCard";
 import InitModal from "./components/InitModal";
 import SurveyNavBar from "./components/SurveyNavBar";
@@ -28,30 +28,7 @@ class App extends Component {
       ratings: [],
     };
   }
-  handleshow = () => {
-    this.setState({ show: true });
-  };
-  handleClose = () => {
-    this.setState({ show: false });
-  };
-  //Generic input handler
-  handleInput = (e) => {
-    const { value, name } = e.target;
-    this.setState({
-      [name]: value,
-    });
-  };
-  //answer handler in the quiz
-  handleAnswer = (e) => {
-    let answer = { ...this.state.answer, text: e.target.value };
-    this.setState({ answer });
-  };
-  //rating handler in the quiz
-  handleRating = (e) => {
-    let { value } = this.state.rating;
-    this.setState({ value: e.target.value });
-  };
-  //fetch request for the questions in the quiz
+ //fetch request for the questions in the quiz
   //need to debug the access to the nested objects and the way of increenting count
   getQuestions = () => {
     let { n } = this.state;
@@ -60,6 +37,7 @@ class App extends Component {
       .then((response) => response.json())
       .then((response) => {
         this.setState({ questions: response });
+        console.log("******THIS IS questions*********");
         console.log(this.state.questions);
         this.setState({
           text: this.state.questions[0].text,
@@ -86,6 +64,37 @@ fetch("http://localhost:5000/questions/?n=5", requestOptions)
 
   */
   };
+
+
+  componentDidMount(){
+    this.getQuestions()
+  }
+
+  handleshow = () => {
+    this.setState({ show: true });
+  };
+  handleClose = () => {
+    this.setState({ show: false });
+  };
+  //Generic input handler
+  handleInput = (e) => {
+    const { value, name } = e.target;
+    this.setState({
+      [name]: value,
+    });
+  };
+  //answer handler in the quiz
+  handleAnswer = (e) => {
+    let answer = { ...this.state.answer, text: e.target.value };
+    this.setState({ answer });
+  };
+  //rating handler in the quiz
+  handleRating = (e) => {
+    let { value } = this.state.rating;
+    this.setState({ value: e.target.value });
+  };
+ 
+  
   //handler to move onto the next question
   handleNext = () => {
     let { answer, rating, count, ratings, answers, questions } = this.state;
@@ -117,6 +126,8 @@ fetch("http://localhost:5000/questions/?n=5", requestOptions)
           count + 1
         }: answers: ${answers}, rating: ${ratings}`
       );
+
+      console.log(this.state.questions);
       this.setState({
         answer,
         rating,

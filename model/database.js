@@ -7,31 +7,27 @@ const DB_PASS = process.env.DB_PASS;
 const DB_NAME = process.env.DB_NAME;
 
 const con = mysql.createConnection({
-  host: DB_HOST || "127.0.0.1",
-  user: DB_USER || "root",
-  password: DB_PASS,
-  database: DB_NAME || "trending",
-  multipleStatements: true,
+    host: DB_HOST || "127.0.0.1",
+    user: DB_USER || "root",
+    password: DB_PASS,
+    database: DB_NAME || "trending",
+    multipleStatements: true,
 });
 
-con.connect(function (err) {
-  if (err) throw err;
-  console.log("Connected!");
+con.connect(function(err) {
+    if (err) throw err;
+    console.log("Connected!");
 
-  let sql = `
-
-
-DROP TABLE question_types;
-DROP TABLE answers;
-DROP TABLE quizzes;
-DROP TABLE users;
-DROP TABLE quizzes_questions;
-DROP TABLE multiple_choice_answers;
-DROP TABLE question_answers;
-DROP TABLE scale_ranges;
-DROP TABLE ratings;
-
-
+    let sql = `
+DROP TABLE IF EXISTS question_types;
+DROP TABLE IF EXISTS answers;
+DROP TABLE IF EXISTS quizzes;
+DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS quizzes_questions;
+DROP TABLE IF EXISTS multiple_choice_answers;
+DROP TABLE IF EXISTS question_answers;
+DROP TABLE IF EXISTS scale_ranges;
+DROP TABLE IF EXISTS ratings;
 CREATE TABLE questions (
 	id INT NOT NULL AUTO_INCREMENT,
 	type_id INT,
@@ -40,7 +36,6 @@ CREATE TABLE questions (
 	twurl varchar(255) NOT NULL,
 	PRIMARY KEY (id)
 );
-
 CREATE TABLE answers (
 	id INT NOT NULL AUTO_INCREMENT,
 	text VARCHAR(255),
@@ -48,14 +43,12 @@ CREATE TABLE answers (
 	userid INT NOT NULL,
 	PRIMARY KEY (id)
 );
-
 CREATE TABLE quizzes (
 	id INT NOT NULL AUTO_INCREMENT,
 	user_id varchar(255) NOT NULL,
 	quiz_name varchar(255) NOT NULL,
 	PRIMARY KEY (id)
 );
-
 CREATE TABLE users (
 	id INT NOT NULL AUTO_INCREMENT,
 	firstname varchar(255) NOT NULL,
@@ -66,7 +59,6 @@ CREATE TABLE users (
 	fb_id varchar(255) NOT NULL,
 	PRIMARY KEY (id)
 );
-
 CREATE TABLE ratings (
 	id INT NOT NULL AUTO_INCREMENT,
 	qid INT NOT NULL,
@@ -74,24 +66,20 @@ CREATE TABLE ratings (
 	value DECIMAL NOT NULL,
 	PRIMARY KEY (id)
 );
-
 CREATE TABLE quizzes_questions (
 	id INT NOT NULL AUTO_INCREMENT,
 	quiz_id INT NOT NULL,
 	question_id INT NOT NULL,
 	PRIMARY KEY (id)
 );
-
-
-
 `;
 
-  con.query(sql, function (err, result) {
-    if (err) throw err;
-    console.log("Table creation `questions` was successful!");
+    con.query(sql, function(err, result) {
+        if (err) throw err;
+        console.log("Table creation `questions` was successful!");
 
-    console.log("Closing...");
-  });
+        console.log("Closing...");
+    });
 
-  con.end();
+    con.end();
 });
