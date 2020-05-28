@@ -38,6 +38,7 @@ CREATE TABLE questions (
 );
 CREATE TABLE answers (
 	id INT NOT NULL AUTO_INCREMENT,
+	quiz_id INT,
 	text VARCHAR(255),
 	qid INT,
 	userid INT NOT NULL,

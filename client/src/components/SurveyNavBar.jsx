@@ -9,7 +9,7 @@ class SurveyNavBar extends Component {
 
   render() {
     return (
-      <nav className="navbar navbar-expand-lg navbar-light bg-light">
+      <nav id ="navbar" className="navbar navbar-expand-lg navbar-light bg-light">
         <a className="navbar-brand" href="#">
           Trending Questions
         </a>

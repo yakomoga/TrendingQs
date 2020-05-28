@@ -173,10 +173,8 @@ fetch("http://localhost:5000/questions/?n=5", requestOptions)
             handleInput={this.handleInput}
             getQuestions={this.getQuestions}
           ></InitModal>
-          <br></br>
-          <br></br>
-
           <GameCard
+          className = "mx-auto"
             handleNext={this.handleNext}
             gotoTwitter={this.gotoTwitter}
             handleInput={this.handleInput}

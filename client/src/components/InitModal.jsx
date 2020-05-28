@@ -10,6 +10,7 @@ class InitModal extends Component {
   render() {
     return (
       <Modal
+        id="modal"
         show={this.props.show}
         onHide={this.props.handleClose}
         animation={false}
