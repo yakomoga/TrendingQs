@@ -66,6 +66,29 @@ fetch("http://localhost:5000/questions/?n=5", requestOptions)
   */
   };
 
+  saveAnswer = () => {
+    let request = `/answers`;
+    fetch(request, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        qid: this.state.qid,
+        userid: this.state.userid,
+        text: this.state.answer
+      })
+    })
+      .then(res => res.json())
+      .then(json => {
+        this.setState({ answers:json });
+      })
+      .catch(error => {
+        this.setState({ error: error });
+      });
+  };
+
+
 
   componentWillMount(){
     this.getQuestions()
@@ -81,21 +104,18 @@ fetch("http://localhost:5000/questions/?n=5", requestOptions)
   handleInputChange = (e) => {
     const value = e.target.value;
     const name = e.target.name;
-    console.log("THESE ARE TYPED ANSWER VALUES ", value, name)
     this.setState({
       [name]: value,
     });
   };
-  
+
   //answer handler in the quiz
-  handleAnswerChange = (e) => {
-    let answer = { ...this.state.answer, text: e.target.value };
-    console.log(answer);
-    console.log("MY TEXT: ", e.target.value);
-    this.setState({ answer });
+  handleSubmitAnswer = () => {
+    console.log("I AM HERE")
+    this.saveAnswer();
   };
   //rating handler in the quiz
-  handleRating = (e) => {
+  handleRatingChange = (e) => {
     // let { value } = this.state.rating;
     this.setState({ value: e.target.value });
   };
@@ -185,8 +205,8 @@ fetch("http://localhost:5000/questions/?n=5", requestOptions)
             handleNext={this.handleNext}
             gotoTwitter={this.gotoTwitter}
             handleInput={this.handleInputChange}
-            handleAnswer={this.handleAnswer}
-            handleRating={this.handleRating}
+            handleSubmitAnswer={this.handleSubmitAnswer}
+            handleRatingChange={this.handleRatingChange}
             rating={this.state.rating}
             answer={this.state.answer}
             text={this.state.text}

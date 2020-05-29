@@ -47,7 +47,7 @@ class GameCard extends Component {
                 onChange={this.props.handleInput}
               />
               <InputGroup.Append>
-                <Button variant="outline-secondary">Submit</Button>
+                <Button variant="outline-secondary" onClick={this.props.handleSubmitAnswer}>Submit</Button>
               </InputGroup.Append>
             </InputGroup>
             {/* <Button className="mr-2" variant="primary" value = "next Q" onClick={this.props.handleNext}/>
