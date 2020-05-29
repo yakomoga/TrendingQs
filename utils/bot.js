@@ -127,25 +127,25 @@ const getAllTweetQ = (err, data, res) => {
     ];
 
     myArray.forEach((status) => {
-        console.log("Here's the raw text: ", status.text);
+        // console.log("Here's the raw text: ", status.text);
         text = cleanText(status.text);
         isEnquiry(text) ? console.log(text) : console.log("Rejected!");
-        console.log("Here's the processed text: ", text);
+        // console.log("Here's the processed text: ", text);
         //Should make this into a function called convert date
         timestamp = convertDate();
         //end of convert date function
-        console.log(timestamp);
+        // console.log(timestamp);
         twurl =
             "http://www.twitter.com/" +
             status.user.screen_name +
             "/status/" +
             status.id;
-        console.log(twurl);
+        // console.log(twurl);
         //upload to database
         addTQuestionsToDB(req, res, text, timestamp, twurl);
-        console.log(data.statuses[3].text);
-        console.log(data.statuses[3].created_at);
-        console.log(data.statuses[3].expanded_url);
+        // console.log(data.statuses[3].text);
+        // console.log(data.statuses[3].created_at);
+        // console.log(data.statuses[3].expanded_url);
     });
 };
 

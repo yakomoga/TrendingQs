@@ -5,7 +5,8 @@ import InitModal from "./components/InitModal";
 import SurveyNavBar from "./components/SurveyNavBar";
 import "./App.css";
 
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+// import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router} from "react-router-dom";
 
 class App extends Component {
   constructor(props) {
@@ -66,7 +67,7 @@ fetch("http://localhost:5000/questions/?n=5", requestOptions)
   };
 
 
-  componentDidMount(){
+  componentWillMount(){
     this.getQuestions()
   }
 
@@ -77,27 +78,33 @@ fetch("http://localhost:5000/questions/?n=5", requestOptions)
     this.setState({ show: false });
   };
   //Generic input handler
-  handleInput = (e) => {
-    const { value, name } = e.target;
+  handleInputChange = (e) => {
+    const value = e.target.value;
+    const name = e.target.name;
+    console.log("THESE ARE TYPED ANSWER VALUES ", value, name)
     this.setState({
       [name]: value,
     });
   };
+  
   //answer handler in the quiz
-  handleAnswer = (e) => {
+  handleAnswerChange = (e) => {
     let answer = { ...this.state.answer, text: e.target.value };
+    console.log(answer);
+    console.log("MY TEXT: ", e.target.value);
     this.setState({ answer });
   };
   //rating handler in the quiz
   handleRating = (e) => {
-    let { value } = this.state.rating;
+    // let { value } = this.state.rating;
     this.setState({ value: e.target.value });
   };
  
   
   //handler to move onto the next question
   handleNext = () => {
-    let { answer, rating, count, ratings, answers, questions } = this.state;
+    // let { answer, rating, count, ratings, answers, questions } = this.state;
+    let { answer, rating, count, ratings, answers } = this.state;
     if (count === this.state.n - 1) {
       //I need to do something else in here
       this.postAnswers();
@@ -127,7 +134,7 @@ fetch("http://localhost:5000/questions/?n=5", requestOptions)
         }: answers: ${answers}, rating: ${ratings}`
       );
 
-      console.log(this.state.questions);
+      // console.log(this.state.questions);
       this.setState({
         answer,
         rating,
@@ -150,7 +157,7 @@ fetch("http://localhost:5000/questions/?n=5", requestOptions)
     ratings = [...this.state.ratings, rating];
 
     let body = JSON.stringify({ answers, ratings, questions, qname, userid });
-    console.log("Here's the body: ", body);
+    // console.log("Here's the body: ", body);
     fetch(`/quizzes`, {
       method: "POST",
       headers: {
@@ -170,14 +177,14 @@ fetch("http://localhost:5000/questions/?n=5", requestOptions)
           <InitModal
             show={this.state.show}
             handleClose={this.handleClose}
-            handleInput={this.handleInput}
+            handleInput={this.handleInputChange}
             getQuestions={this.getQuestions}
           ></InitModal>
           <GameCard
           className = "mx-auto"
             handleNext={this.handleNext}
             gotoTwitter={this.gotoTwitter}
-            handleInput={this.handleInput}
+            handleInput={this.handleInputChange}
             handleAnswer={this.handleAnswer}
             handleRating={this.handleRating}
             rating={this.state.rating}

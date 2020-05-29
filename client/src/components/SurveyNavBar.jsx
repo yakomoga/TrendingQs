@@ -1,11 +1,11 @@
 import React, { Component } from "react";
-import Modal from "react-bootstrap/Modal";
-import Button from "react-bootstrap/Button";
+// import Modal from "react-bootstrap/Modal";
+// import Button from "react-bootstrap/Button";
 
 class SurveyNavBar extends Component {
-  constructor(props) {
-    super(props);
-  }
+  // constructor(props) {
+  //   super(props);
+  // }
 
   render() {
     return (
