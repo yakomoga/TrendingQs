@@ -24,7 +24,7 @@ router.post("/", function(req, res, next) {
     console.log("*************************");
     console.log(req.body);
     db(
-            `INSERT INTO answers (qid, userid, text) VALUES ("${req.body.qid}", "${req.body.userid}", "${req.body.text}");`
+            `INSERT INTO answers (q_id, user_id, text) VALUES ("${req.body.q_id}", "${req.body.user_id}", "${req.body.text}");`
         )
         .then((results) => {
             db("SELECT * FROM answers;")

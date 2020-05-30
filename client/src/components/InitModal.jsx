@@ -24,12 +24,12 @@ class InitModal extends Component {
               <li className="list-group-item">
                 <label>Quiz Name:</label>
                 <input
-                  name="qname"
+                  name="q_name"
                   className="form-control"
                   aria-label="With textarea"
                   placeholder="Enter a name for your quiz"
                   onChange={this.props.handleInput}
-                  value={this.props.qname}
+                  value={this.props.q_name}
                 />
               </li>
               <li className="list-group-item">

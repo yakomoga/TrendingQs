@@ -12,15 +12,15 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      userid: "1",
+      user_id: "1",
       complete: null,
-      rating: { value: 50.0, userid: "1", qid: "" },
-      answer: { text: "", userid: "1", qid: "" },
+      rating: { value: 50.0, user_id: "1", q_id: "" },
+      answer: { text: "", user_id: "1", q_id: "" },
       text: "This is a test question?",
       twurl: "",
-      id: "",
+      q_id: "",
       timestamp: "",
-      qname: "test_quiz",
+      q_name: "test_quiz",
       n: 20,
       count: 0,
       show: false,
@@ -38,11 +38,11 @@ class App extends Component {
       .then((response) => response.json())
       .then((response) => {
         this.setState({ questions: response });
-        console.log("******THIS IS questions*********");
-        console.log(this.state.questions);
+        // console.log("******THIS IS questions*********");
+        // console.log(this.state.questions);
         this.setState({
           text: this.state.questions[0].text,
-          id: this.state.questions[0].id,
+          q_id: this.state.questions[0].id,
           twurl: this.state.questions[0].twurl,
           timestamp: this.state.questions[0].timestamp,
           complete: false,
@@ -74,8 +74,8 @@ fetch("http://localhost:5000/questions/?n=5", requestOptions)
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        qid: this.state.qid,
-        userid: this.state.userid,
+        q_id: this.state.q_id,
+        user_id: this.state.user_id,
         text: this.state.answer
       })
     })
@@ -139,8 +139,8 @@ fetch("http://localhost:5000/questions/?n=5", requestOptions)
       return;
     } else {
       count++;
-      answer = { ...this.state.answer, qid: this.state.id };
-      rating = { ...this.state.rating, qid: this.state.id };
+      answer = { ...this.state.answer, q_id: this.state.id };
+      rating = { ...this.state.rating, q_id: this.state.id };
       console.log(
         `These are the values to be stored for question ${
           count + 1
@@ -170,13 +170,13 @@ fetch("http://localhost:5000/questions/?n=5", requestOptions)
   };
   //send a fetch request to the server to post the results of the quiz
   postAnswers = () => {
-    let { answers, ratings, questions, qname, userid } = this.state;
-    let answer = { ...this.state.answer, qid: this.state.id };
-    let rating = { ...this.state.rating, qid: this.state.id };
+    let { answers, ratings, questions, q_name, user_id } = this.state;
+    let answer = { ...this.state.answer, q_id: this.state.id };
+    let rating = { ...this.state.rating, q_id: this.state.id };
     answers = [...this.state.answers, answer];
     ratings = [...this.state.ratings, rating];
 
-    let body = JSON.stringify({ answers, ratings, questions, qname, userid });
+    let body = JSON.stringify({ answers, ratings, questions, q_name, user_id });
     // console.log("Here's the body: ", body);
     fetch(`/quizzes`, {
       method: "POST",

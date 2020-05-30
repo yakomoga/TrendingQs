@@ -21,9 +21,9 @@ router.get("/", function(req, res, next) {
 
 // INSERT a new quizz into the DB
 router.post("/", function(req, res, next) {
-    const { answers, ratings, questions, qname, userid } = req.body;
+    const { answers, ratings, questions, q_name, user_id } = req.body;
     db(
-            `INSERT INTO quizzes (user_id, quiz_name) VALUES ( "${userid}", "${qname}");`
+            `INSERT INTO quizzes (user_id, quiz_name) VALUES ( "${user_id}", "${q_name}");`
         )
         .then((results) => {
             db("SELECT id FROM quizzes ORDER BY id DESC LIMIT 1;")
@@ -31,7 +31,7 @@ router.post("/", function(req, res, next) {
                     const quiz_id = results.data[0].id;
                     for (let i = 0; i < questions.length; i++) {
                         db(
-                                `INSERT INTO answers (userid, quiz_id, qid, text) VALUES ( "${userid}", "${quiz_id}", "${questions[i].id}", "${answers[i].text}"); INSERT INTO ratings (userid, quiz_id, qid, value) VALUES ( "${userid}", "${quiz_id}", "${questions[i].id}", "${ratings[i].value}"); INSERT INTO quizzes_questions (quiz_id, question_id) VALUES ( "${quiz_id}", "${questions[i].id}");`
+                                `INSERT INTO answers (user_id, quiz_id, q_id, text) VALUES ( "${user_id}", "${quiz_id}", "${questions[i].id}", "${answers[i].text}"); INSERT INTO ratings (user_id, quiz_id, q_id, value) VALUES ( "${user_id}", "${quiz_id}", "${questions[i].id}", "${ratings[i].value}"); INSERT INTO quizzes_questions (quiz_id, q_id) VALUES ( "${quiz_id}", "${questions[i].id}");`
                             )
                             .then((results) => {
                                 // console.log("Here are the POST into answers, ratings and quizzes results: ", results.data);

@@ -40,8 +40,8 @@ CREATE TABLE answers (
 	id INT NOT NULL AUTO_INCREMENT,
 	quiz_id INT,
 	text VARCHAR(255),
-	qid INT,
-	userid INT NOT NULL,
+	q_id INT,
+	user_id INT NOT NULL,
 	PRIMARY KEY (id)
 );
 CREATE TABLE quizzes (
@@ -62,15 +62,15 @@ CREATE TABLE users (
 );
 CREATE TABLE ratings (
 	id INT NOT NULL AUTO_INCREMENT,
-	qid INT NOT NULL,
-	userid INT NOT NULL,
+	q_id INT NOT NULL,
+	user_id INT NOT NULL,
 	value DECIMAL NOT NULL,
 	PRIMARY KEY (id)
 );
 CREATE TABLE quizzes_questions (
 	id INT NOT NULL AUTO_INCREMENT,
 	quiz_id INT NOT NULL,
-	question_id INT NOT NULL,
+	q_id INT NOT NULL,
 	PRIMARY KEY (id)
 );
 `;
