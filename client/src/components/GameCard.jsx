@@ -12,8 +12,8 @@ class GameCard extends Component {
     super(props);
     this.state = {
       rating: props.rating,
-      questions: props.questions,
-      count: props.count,
+      question: props.question,
+      q_num: props.q_num,
       // answer: this.props.answer,
       answer: "",
     };
@@ -47,9 +47,9 @@ class GameCard extends Component {
             alt="jellyfish"
           />
           <Card.Body>
-            <Card.Title>Question #{this.state.count}</Card.Title>
+            <Card.Title>Question #{this.props.q_num}</Card.Title>
             <Card.Text style={{ minHeight: "4rem", verticalAlign: "middle" }}>
-              {/* {this.props.questions[this.props.count].text} */}
+              {this.props.question.text}
             </Card.Text>
             {/* <Card.Link href={this.props.questions}>Open in Twitter</Card.Link> */}
 
@@ -71,13 +71,13 @@ class GameCard extends Component {
                 </Button>
               </InputGroup.Append>
             </InputGroup>
-            {/* <Button className="mr-2" variant="primary" value = "next Q" onClick={this.props.handleNext}/>
-            <Button className="mr-2" variant="primary" value = "prev q"/> */}
             <Button
               className="mr-2"
               as="input"
               type="button"
               value="Previous question"
+              onClick={this.props.handlePrev}
+              disabled={this.props.quiz_start}
             />
             <Button
               className="mr-2"
@@ -85,7 +85,7 @@ class GameCard extends Component {
               type="button"
               value="Next question"
               onClick={this.props.handleNext}
-              disabled={this.props.quiz_complete}
+              disabled={this.props.quiz_end}
             />
           </Card.Body>
           <li className="list-group-item">

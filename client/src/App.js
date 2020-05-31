@@ -13,17 +13,14 @@ class App extends Component {
     super(props);
     this.state = {
       user_id: "1",
-      quiz_beginning: true,
-      quiz_complete: undefined,
+      quiz_start: true,
+      quiz_end: false,
       rating: { value: 50.0, user_id: "1", q_id: "" },
       answer: { text: "", user_id: "1", q_id: "" },
-      text: "This is a test question?",
-      twurl: "",
-      q_id: "",
-      timestamp: "",
-      q_name: "test_quiz",
+      question: {},
+      quiz_name: "test_quiz",
       n: 20,
-      count: 1,
+      q_num: null,
       show: false,
       questions: [],
       answers: [],
@@ -31,7 +28,7 @@ class App extends Component {
     };
   }
   //fetch request for the questions in the quiz
-  //need to debug the access to the nested objects and the way of increenting count
+  //need to debug the access to the nested objects and the way of increenting q_num
   getQuestions = () => {
     let { n } = this.state;
     let request = `/questions/?n=${n}`;
@@ -42,29 +39,27 @@ class App extends Component {
         // console.log("******THIS IS questions*********");
         // console.log(this.state.questions);
         this.setState({
-          text: this.state.questions[0].text,
-          q_id: this.state.questions[0].id,
-          twurl: this.state.questions[0].twurl,
-          timestamp: this.state.questions[0].timestamp,
-          // quiz_complete: false,
+          question: this.state.questions[0],
+          q_num: 0,
+          // quiz_end: false,
         });
       });
     this.handleClose();
-    //to try later
-    /* var raw = "";
+  };
 
-var requestOptions = {
-  method: 'GET',
-  body: raw,
-  redirect: 'follow'
-};
-
-fetch("http://localhost:5000/questions/?n=5", requestOptions)
-  .then(response => response.text())
-  .then(result => console.log(result))
-  .catch(error => console.log('error', error));
-
-  */
+  setQuizStartEnd = () => {
+    console.log("this is q_num: ", this.state.q_num);
+    if (this.state.q_num + 1 == this.state.n-1) {
+      this.setState({ quiz_start: false, quiz_end: true });
+    } else if (this.state.q_num-2 === 0) {
+      console.log("this.state.q_num-1: ", this.state.q_num-1)
+      this.setState({ quiz_start: true, quiz_end: false });
+    } else {
+      this.setState({ quiz_start: false, quiz_end: false });
+    }
+    console.log(
+      `this are states quiz_start: ${this.state.quiz_start}, quiz_end: ${this.state.quiz_end} `
+    );
   };
 
   saveAnswer = () => {
@@ -120,69 +115,27 @@ fetch("http://localhost:5000/questions/?n=5", requestOptions)
 
   //handler to move onto the next question
   handleNext = () => {
-    // let { answer, rating, count, ratings, answers, questions } = this.state;
-    // let { answer, rating, count, ratings, answers } = this.state;
-    let count = this.state.count;
-    // console.log(" THIS IS COUNT!!***** ", count);
+    // let { answer, rating, q_num, ratings, answers, questions } = this.state;
+    // let { answer, rating, q_num, ratings, answers } = this.state;
+    let q_num = this.state.q_num;
+    // console.log(" THIS IS q_num!!***** ", q_num);
     this.setState({
-      text: this.state.questions[count].text,
-      id: this.state.questions[count].id,
-      twurl: this.state.questions[count].twurl,
-      timestamp: this.state.questions[count].timestamp,
-      count: count + 1,
+      question: this.state.questions[q_num + 1],
+      q_num: q_num + 1,
     });
-    if (this.state.count == this.state.n) {
-      console.log("count == this.state.n: ", count == this.state.n);
-      this.setState({ quiz_beginning: false,
-                      quiz_complete: true});
-    } else if (this.state.count == 1) {
-      console.log("count == 1: ", count == 1);
-      this.setState({ quiz_beginning: true, 
-                      quiz_complete: false });
-    } else {
-      console.log("I am here in the else statement");
-      this.setState({ quiz_beginning: false, 
-                      quiz_complete: false });
-      console.log(this.state.quiz_beginning, this.state.quiz_complete);
-    }
-    // console.log(" THIS IS COUNT!!***** ", count);
+    this.setQuizStartEnd();
+  };
 
-    // if (count === this.state.n-1) {
-    //   console.log("this is count inside the if", count)
-
-    //   this.saveAnswer();
-    //   //not sure why we clear state here
-    //   this.setState({
-    //     answers: [],
-    //     ratings: [],
-    //     questions: [],
-    //     count: 1,
-    //   });
-    //   return;
-    // } else {
-    //   count++;
-    //   //mark end of the quiz
-    //   if(count === this.state.n){this.setState({quiz_complete: true})}
-
-    //   answer = { ...this.state.answer, q_id: this.state.id };
-    //   rating = { ...this.state.rating, q_id: this.state.id };
-
-    //   answers = [...this.state.answers, answer];
-    //   ratings = [...this.state.ratings, rating];
-
-    //   // console.log(this.state.questions);
-    //   this.setState({
-    //     answer,
-    //     rating,
-    //     answers,
-    //     ratings,
-    //     text: this.state.questions[count].text,
-    //     id: this.state.questions[count].id,
-    //     twurl: this.state.questions[count].twurl,
-    //     timestamp: this.state.questions[count].timestamp,
-    //     count,
-    //   });
-    // }
+  handlePrev = () => {
+    // let { answer, rating, q_num, ratings, answers, questions } = this.state;
+    // let { answer, rating, q_num, ratings, answers } = this.state;
+    let q_num = this.state.q_num;
+    // console.log(" THIS IS q_num!!***** ", q_num);
+    this.setState({
+      question: this.state.questions[q_num - 1],
+      q_num: q_num - 1,
+    });
+    this.setQuizStartEnd();
   };
   //send a fetch request to the server to post the results of the quiz
   //open new browsing tab to twurl
@@ -202,17 +155,17 @@ fetch("http://localhost:5000/questions/?n=5", requestOptions)
           <GameCard
             className="mx-auto"
             handleNext={this.handleNext}
+            handlePrev={this.handlePrev}
             gotoTwitter={this.gotoTwitter}
             handleInput={this.handleInputChange}
             handleSubmitAnswer={this.handleSubmitAnswer}
             handleRatingChange={this.handleRatingChange}
-            questions = {this.state.questions}
+            question={this.state.question}
             rating={this.state.rating}
+            q_num={this.state.q_num + 1}
             answer={this.state.answer}
-            text={this.state.text}
-            count={this.state.count}
-            twurl={this.state.twurl}
-            quiz_complete={this.state.quiz_complete}
+            quiz_end={this.state.quiz_end}
+            quiz_start={this.state.quiz_start}
           ></GameCard>
         </div>
       </Router>
