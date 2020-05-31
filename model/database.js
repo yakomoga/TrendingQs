@@ -32,7 +32,7 @@ DROP TABLE IF EXISTS ratings;
 CREATE TABLE questions (
 	id INT NOT NULL AUTO_INCREMENT,
 	type_id INT,
-	text VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci,
+	text VARCHAR(255) UNIQUE CHARACTER SET utf8 COLLATE utf8_unicode_ci,
 	date TIMESTAMP NOT NULL,
 	twurl varchar(255) NOT NULL,
 	PRIMARY KEY (id)

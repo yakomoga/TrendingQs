@@ -102,12 +102,13 @@ function isRating() {}
 // This is a function to add questions from Twitter API to the DB
 const addTQuestionsToDB = (res, text, timestamp, twurl) => {
     db(
-            `INSERT INTO questions (type_id, text, date, twurl) VALUES (1, "${text}", "${timestamp}", "${twurl}");`
+            `INSERT IGNORE INTO questions (type_id, text, date, twurl) VALUES (1, "${text}", "${timestamp}", "${twurl}");`
         )
         .then((results) => {
             // console.log(results);
         })
-        .catch((err) => res.status(500).send(err));
+        // .catch((err) => res.status(500).send(err));
+        .catch((err) => console.log(err));
 };
 //here we are converting twitter time to a normal time
 const convertDate = (status) => {
