@@ -6,14 +6,15 @@ import SurveyNavBar from "./components/SurveyNavBar";
 import "./App.css";
 
 // import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import { BrowserRouter as Router} from "react-router-dom";
+import { BrowserRouter as Router } from "react-router-dom";
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       user_id: "1",
-      complete: null,
+      quiz_beginning: true,
+      quiz_complete: undefined,
       rating: { value: 50.0, user_id: "1", q_id: "" },
       answer: { text: "", user_id: "1", q_id: "" },
       text: "This is a test question?",
@@ -22,14 +23,14 @@ class App extends Component {
       timestamp: "",
       q_name: "test_quiz",
       n: 20,
-      count: 0,
+      count: 1,
       show: false,
       questions: [],
       answers: [],
       ratings: [],
     };
   }
- //fetch request for the questions in the quiz
+  //fetch request for the questions in the quiz
   //need to debug the access to the nested objects and the way of increenting count
   getQuestions = () => {
     let { n } = this.state;
@@ -45,7 +46,7 @@ class App extends Component {
           q_id: this.state.questions[0].id,
           twurl: this.state.questions[0].twurl,
           timestamp: this.state.questions[0].timestamp,
-          complete: false,
+          // quiz_complete: false,
         });
       });
     this.handleClose();
@@ -71,27 +72,25 @@ fetch("http://localhost:5000/questions/?n=5", requestOptions)
     fetch(request, {
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         q_id: this.state.q_id,
         user_id: this.state.user_id,
-        text: this.state.answer
-      })
+        text: this.state.answer,
+      }),
     })
-      .then(res => res.json())
-      .then(json => {
-        this.setState({ answers:json });
+      .then((res) => res.json())
+      .then((json) => {
+        this.setState({ answers: json });
       })
-      .catch(error => {
+      .catch((error) => {
         this.setState({ error: error });
       });
   };
 
-
-
-  componentWillMount(){
-    this.getQuestions()
+  componentDidMount() {
+    this.getQuestions();
   }
 
   handleshow = () => {
@@ -111,7 +110,6 @@ fetch("http://localhost:5000/questions/?n=5", requestOptions)
 
   //answer handler in the quiz
   handleSubmitAnswer = () => {
-    console.log("I AM HERE")
     this.saveAnswer();
   };
   //rating handler in the quiz
@@ -119,73 +117,74 @@ fetch("http://localhost:5000/questions/?n=5", requestOptions)
     // let { value } = this.state.rating;
     this.setState({ value: e.target.value });
   };
- 
-  
+
   //handler to move onto the next question
   handleNext = () => {
     // let { answer, rating, count, ratings, answers, questions } = this.state;
-    let { answer, rating, count, ratings, answers } = this.state;
-    if (count === this.state.n - 1) {
-      //I need to do something else in here
-      this.postAnswers();
-      this.setState({
-        answers: [],
-        ratings: [],
-        questions: [],
-        count: 0,
-        complete: true,
-      });
-      console.log("End of Quiz!");
-      return;
+    // let { answer, rating, count, ratings, answers } = this.state;
+    let count = this.state.count;
+    // console.log(" THIS IS COUNT!!***** ", count);
+    this.setState({
+      text: this.state.questions[count].text,
+      id: this.state.questions[count].id,
+      twurl: this.state.questions[count].twurl,
+      timestamp: this.state.questions[count].timestamp,
+      count: count + 1,
+    });
+    if (this.state.count == this.state.n) {
+      console.log("count == this.state.n: ", count == this.state.n);
+      this.setState({ quiz_beginning: false,
+                      quiz_complete: true});
+    } else if (this.state.count == 1) {
+      console.log("count == 1: ", count == 1);
+      this.setState({ quiz_beginning: true, 
+                      quiz_complete: false });
     } else {
-      count++;
-      answer = { ...this.state.answer, q_id: this.state.id };
-      rating = { ...this.state.rating, q_id: this.state.id };
-      console.log(
-        `These are the values to be stored for question ${
-          count + 1
-        }: answer: ${answer}, rating: ${rating}`
-      );
-      answers = [...this.state.answers, answer];
-      ratings = [...this.state.ratings, rating];
-      console.log(
-        `These are the values to be stored in the arrays for question ${
-          count + 1
-        }: answers: ${answers}, rating: ${ratings}`
-      );
-
-      // console.log(this.state.questions);
-      this.setState({
-        answer,
-        rating,
-        answers,
-        ratings,
-        text: this.state.questions[count].text,
-        id: this.state.questions[count].id,
-        twurl: this.state.questions[count].twurl,
-        timestamp: this.state.questions[count].timestamp,
-        count,
-      });
+      console.log("I am here in the else statement");
+      this.setState({ quiz_beginning: false, 
+                      quiz_complete: false });
+      console.log(this.state.quiz_beginning, this.state.quiz_complete);
     }
+    // console.log(" THIS IS COUNT!!***** ", count);
+
+    // if (count === this.state.n-1) {
+    //   console.log("this is count inside the if", count)
+
+    //   this.saveAnswer();
+    //   //not sure why we clear state here
+    //   this.setState({
+    //     answers: [],
+    //     ratings: [],
+    //     questions: [],
+    //     count: 1,
+    //   });
+    //   return;
+    // } else {
+    //   count++;
+    //   //mark end of the quiz
+    //   if(count === this.state.n){this.setState({quiz_complete: true})}
+
+    //   answer = { ...this.state.answer, q_id: this.state.id };
+    //   rating = { ...this.state.rating, q_id: this.state.id };
+
+    //   answers = [...this.state.answers, answer];
+    //   ratings = [...this.state.ratings, rating];
+
+    //   // console.log(this.state.questions);
+    //   this.setState({
+    //     answer,
+    //     rating,
+    //     answers,
+    //     ratings,
+    //     text: this.state.questions[count].text,
+    //     id: this.state.questions[count].id,
+    //     twurl: this.state.questions[count].twurl,
+    //     timestamp: this.state.questions[count].timestamp,
+    //     count,
+    //   });
+    // }
   };
   //send a fetch request to the server to post the results of the quiz
-  postAnswers = () => {
-    let { answers, ratings, questions, q_name, user_id } = this.state;
-    let answer = { ...this.state.answer, q_id: this.state.id };
-    let rating = { ...this.state.rating, q_id: this.state.id };
-    answers = [...this.state.answers, answer];
-    ratings = [...this.state.ratings, rating];
-
-    let body = JSON.stringify({ answers, ratings, questions, q_name, user_id });
-    // console.log("Here's the body: ", body);
-    fetch(`/quizzes`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body,
-    }).then((response) => response.json());
-  };
   //open new browsing tab to twurl
   gotoTwitter = () => {};
 
@@ -201,16 +200,19 @@ fetch("http://localhost:5000/questions/?n=5", requestOptions)
             getQuestions={this.getQuestions}
           ></InitModal>
           <GameCard
-          className = "mx-auto"
+            className="mx-auto"
             handleNext={this.handleNext}
             gotoTwitter={this.gotoTwitter}
             handleInput={this.handleInputChange}
             handleSubmitAnswer={this.handleSubmitAnswer}
             handleRatingChange={this.handleRatingChange}
+            questions = {this.state.questions}
             rating={this.state.rating}
             answer={this.state.answer}
             text={this.state.text}
             count={this.state.count}
+            twurl={this.state.twurl}
+            quiz_complete={this.state.quiz_complete}
           ></GameCard>
         </div>
       </Router>
