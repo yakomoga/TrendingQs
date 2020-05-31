@@ -9,62 +9,80 @@ var T = new Twit({
     access_token_secret: "Vph2LxWdNsf669xGRMddhp62EWBRjuiGsuYxFYLiZkY3W",
     timeout_ms: 60 * 1000, // optional HTTP request timeout to apply to all requests.
     strictSSL: true, // optional - requires SSL certificates to be valid.
-});
 
+});
+let qArray = [
+    "who",
+    "when",
+    "what",
+    "where",
+    "why",
+    "how",
+    "if",
+    "either",
+    "or",
+    "rather",
+    "prefer",
+    "which",
+    "am",
+    "is",
+    "are",
+    "were",
+    "do",
+    "does",
+    "did",
+    "have",
+    "has",
+    "had",
+    "can",
+    "could",
+    "will",
+    "shall",
+    "would",
+    "should",
+    "in",
+    "at",
+    "to",
+    "from",
+    "on",
+    "over",
+    "under",
+];
+const months = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+];
 //This sets the twitter bot to get new questions once a day and to inject them into the database
 //the input of the second parameter is time and the units are milliseconds
 setInterval(T.get, 1000 * 60);
 
 function isEnquiry(string) {
-    let qarray = [
-        "who",
-        "when",
-        "what",
-        "where",
-        "why",
-        "how",
-        "if",
-        "either",
-        "or",
-        "rather",
-        "prefer",
-        "which",
-        "am",
-        "is",
-        "are",
-        "were",
-        "do",
-        "does",
-        "did",
-        "have",
-        "has",
-        "had",
-        "can",
-        "could",
-        "will",
-        "shall",
-        "would",
-        "should",
-        "in",
-        "at",
-        "to",
-        "from",
-        "on",
-        "over",
-        "under",
-    ];
-    //let word;
-    qarray.forEach((word) => {
+    qArray.forEach((word) => {
+        word = word.toLowerCase();
+        string = string.toLowerCase();
         //maybe I should change the condition to be at the beginning of the string, or when it follows a comma
         if (string.includes(word)) {
             return true;
-        } else return false;
+        } else {
+            return false;
+        }
     });
 }
 
 //Here we're going to strip out any @mentions, hashtags
 function cleanText(string) {
-    let mystring = string.replace(/\s([@#][\w_-]+)/gim, "");
+    let mystring = string.replace(/\s([@#][\w_-]+)/gim, "").replace(/""/g, '"');
+    mystring = mystring.replace(/^"|"$/g, '');
     return mystring;
 }
 
@@ -82,17 +100,17 @@ function isChecklist() {}
 function isRating() {}
 
 // This is a function to add questions from Twitter API to the DB
-const addTQuestionsToDB = (req, res, text, timestamp, twurl) => {
+const addTQuestionsToDB = (res, text, timestamp, twurl) => {
     db(
             `INSERT INTO questions (type_id, text, date, twurl) VALUES (1, "${text}", "${timestamp}", "${twurl}");`
         )
         .then((results) => {
-            console.log(results);
+            // console.log(results);
         })
         .catch((err) => res.status(500).send(err));
 };
 //here we are converting twitter time to a normal time
-const convertDate = () => {
+const convertDate = (status) => {
     year = status.created_at.slice(-4);
     strmonth = status.created_at.slice(4, 7);
     intMonth = months.findIndex((e) => e === strmonth);
@@ -104,35 +122,21 @@ const convertDate = () => {
 const getAllTweetQ = (err, data, res) => {
     console.log(data.statuses[1].text);
     let rand = Math.floor(Math.random() * 100);
-    let myArray = data.statuses;
+    let statuses = data.statuses;
     let twurl;
     let text;
     let intMonth;
     let timestamp = "";
     let strmonth = "";
     let year = "";
-    const months = [
-        "Jan",
-        "Feb",
-        "Mar",
-        "Apr",
-        "May",
-        "Jun",
-        "Jul",
-        "Aug",
-        "Sep",
-        "Oct",
-        "Nov",
-        "Dec",
-    ];
 
-    myArray.forEach((status) => {
+    statuses.forEach((status) => {
         // console.log("Here's the raw text: ", status.text);
         text = cleanText(status.text);
-        isEnquiry(text) ? console.log(text) : console.log("Rejected!");
+        isEnquiry(text) ? console.log(text) : console.log("Rejected!", text);
         // console.log("Here's the processed text: ", text);
         //Should make this into a function called convert date
-        timestamp = convertDate();
+        timestamp = convertDate(status);
         //end of convert date function
         // console.log(timestamp);
         twurl =
@@ -142,7 +146,7 @@ const getAllTweetQ = (err, data, res) => {
             status.id;
         // console.log(twurl);
         //upload to database
-        addTQuestionsToDB(req, res, text, timestamp, twurl);
+        addTQuestionsToDB(res, text, timestamp, twurl);
         // console.log(data.statuses[3].text);
         // console.log(data.statuses[3].created_at);
         // console.log(data.statuses[3].expanded_url);
