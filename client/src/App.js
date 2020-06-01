@@ -13,8 +13,6 @@ class App extends Component {
     super(props);
     this.state = {
       user_id: "1",
-      quiz_start: true,
-      quiz_end: false,
       rating: { value: 50.0, user_id: "1", q_id: "" },
       answer: { text: "", user_id: "1", q_id: "" },
       question: {},
@@ -46,21 +44,21 @@ class App extends Component {
       });
     this.handleClose();
   };
-
-  setQuizStartEnd = () => {
-    console.log("this is q_num: ", this.state.q_num);
-    if (this.state.q_num + 1 == this.state.n-1) {
-      this.setState({ quiz_start: false, quiz_end: true });
-    } else if (this.state.q_num-2 === 0) {
-      console.log("this.state.q_num-1: ", this.state.q_num-1)
-      this.setState({ quiz_start: true, quiz_end: false });
-    } else {
-      this.setState({ quiz_start: false, quiz_end: false });
-    }
-    console.log(
-      `this are states quiz_start: ${this.state.quiz_start}, quiz_end: ${this.state.quiz_end} `
-    );
-  };
+//find out why this doesn't work well (the else if)
+  // setQuizStartEnd = () => {
+  //   console.log("this is q_num: ", this.state.q_num);
+  //   if (this.state.q_num + 1 == this.state.n - 1) {
+  //     this.setState({ quiz_start: false, quiz_end: true });
+  //   // } else if (this.state.q_num-1  === 0) {
+  //   //   console.log("this.state.q_num: ", this.state.q_num);
+  //   //   this.setState({ quiz_start: true, quiz_end: false });
+  //   } else {
+  //     this.setState({ quiz_start: false, quiz_end: false });
+  //   }
+  //   console.log(
+  //     `this are states quiz_start: ${this.state.quiz_start}, quiz_end: ${this.state.quiz_end} `
+  //   );
+  // };
 
   saveAnswer = () => {
     let request = `/answers`;
@@ -164,8 +162,7 @@ class App extends Component {
             rating={this.state.rating}
             q_num={this.state.q_num + 1}
             answer={this.state.answer}
-            quiz_end={this.state.quiz_end}
-            quiz_start={this.state.quiz_start}
+            last_question={this.state.n}
           ></GameCard>
         </div>
       </Router>

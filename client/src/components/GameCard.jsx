@@ -77,7 +77,7 @@ class GameCard extends Component {
               type="button"
               value="Previous question"
               onClick={this.props.handlePrev}
-              disabled={this.props.quiz_start}
+              disabled={this.props.q_num===1}
             />
             <Button
               className="mr-2"
@@ -85,7 +85,7 @@ class GameCard extends Component {
               type="button"
               value="Next question"
               onClick={this.props.handleNext}
-              disabled={this.props.quiz_end}
+              disabled={this.props.q_num===this.props.last_question}
             />
           </Card.Body>
           <li className="list-group-item">
