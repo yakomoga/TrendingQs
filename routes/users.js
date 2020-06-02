@@ -50,9 +50,18 @@ router.post("/login", (req, res, next) => {
         .catch((err) => res.status(500).send(err));
 });
 
-//This resourse is protected
+// //This resourse is protected
+// router.get("/profile", userMustBeLoggedIn, (req, res, next) => {
+//     res.send({ message: `Show this data for your user ${req.userId}` });
+// });
+
+//This resourse is protectedz
+router.get("/profile", userMustBeLoggedIn, (req, res, next) => {
+    res.send({ message: `Here is my user id ${req.userId}` })
+});
+
 router.get("/gamecard", userMustBeLoggedIn, (req, res, next) => {
-    res.send({ message: `Show this data for your user ${req.userId}` });
+    res.send({ message: `Here is my user id ${req.userId}` })
 });
 
 // DELETE a question from the DB

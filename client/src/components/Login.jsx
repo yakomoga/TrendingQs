@@ -19,6 +19,17 @@ class Login extends Component {
     });
   };
 
+  openGameCard = () => {
+    axios("/users/profile", {
+        headers: {"x-access-token": localStorage.getItem("token")}
+    })
+      .then(response => {
+          console.log(response.data)
+          this.props.history.push('/users/profile');
+      })
+      .catch(error => {console.log("This is the error ********* ", error)})
+    };
+
   handleLogin = () => {
     const { email, password } = this.state;
     axios("/users/login", {
@@ -30,21 +41,13 @@ class Login extends Component {
     })
     .then(response => {
         localStorage.setItem("token", response.data.token);
-        this.props.history.push('/users/gamecard');
+        this.openGameCard();
         console.log(response.data)
     })
     .catch(error => {console.log(error)})
   };
 
-  requestData = () => {
-    axios("/users/profile", {
-        headers: {"x-access-token": localStorage.getItem("token")}
-    })
-      .then(response => {
-       console.log(response)
-      })
-      .catch(error => {console.log(error)})
-    };
+  
 
   render() {
     const { email, password } = this.state;
