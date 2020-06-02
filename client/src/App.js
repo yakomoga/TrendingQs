@@ -49,9 +49,9 @@ class App extends Component {
   //   console.log("this is q_num: ", this.state.q_num);
   //   if (this.state.q_num + 1 == this.state.n - 1) {
   //     this.setState({ quiz_start: false, quiz_end: true });
-  //   // } else if (this.state.q_num-1  === 0) {
-  //   //   console.log("this.state.q_num: ", this.state.q_num);
-  //   //   this.setState({ quiz_start: true, quiz_end: false });
+  //   } else if (this.state.q_num-1  === 0) {
+  //     console.log("this.state.q_num: ", this.state.q_num);
+  //     this.setState({ quiz_start: true, quiz_end: false });
   //   } else {
   //     this.setState({ quiz_start: false, quiz_end: false });
   //   }
