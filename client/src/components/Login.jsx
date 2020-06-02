@@ -30,7 +30,7 @@ class Login extends Component {
     })
     .then(response => {
         localStorage.setItem("token", response.data.token);
-        this.props.history.push('/gamecard');
+        this.props.history.push('/users/gamecard');
         console.log(response.data)
     })
     .catch(error => {console.log(error)})

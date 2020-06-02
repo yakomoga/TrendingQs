@@ -1,7 +1,4 @@
 import React, { Component } from "react";
-// import styled, { keyframes } from "styled-components";
-// import styled from "styled-components";
-// import { ReactComponent as EmojiSmile } from "../emoji-smile.svg";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import InputGroup from "react-bootstrap/InputGroup";
@@ -14,28 +11,9 @@ class GameCard extends Component {
       rating: props.rating,
       question: props.question,
       q_num: props.q_num,
-      // answer: this.props.answer,
       answer: "",
     };
   }
-
-  // static getDerivedStateFromProps(props, state){
-  
-  //   if (props.questions !== state.questions) {
-  //     return {
-  //       questions: props.questions,
-  //     };
-  //   }
-  //   return null;
-  // }
-
-
-// componentWillMount(){
-//   this.setState({
-//     questions: this.props.questions
-//   })
-// }
-
 
   render() {
     return (

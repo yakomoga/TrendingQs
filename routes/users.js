@@ -51,7 +51,7 @@ router.post("/login", (req, res, next) => {
 });
 
 //This resourse is protected
-router.get("/profile", userMustBeLoggedIn, (req, res, next) => {
+router.get("/gamecard", userMustBeLoggedIn, (req, res, next) => {
     res.send({ message: `Show this data for your user ${req.userId}` });
 });
 

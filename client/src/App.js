@@ -160,7 +160,7 @@ class App extends Component {
                 <Route path="/login" component={Login} />
                 <Route path="/sign-up"><SignUp/></Route>
                 <Route path="/profile" component={Profile}/>
-                <Route path="/gamecard" component={GameCard}/>
+                <Route path="/users/gamecard" component={GameCard}/>
               </Switch>
             </div>
           </div>
