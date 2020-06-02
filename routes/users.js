@@ -36,7 +36,8 @@ router.post("/login", (req, res, next) => {
         )
         .then((results) => {
             if (results.data.length) {
-                res.send({ message: "User OK!" });
+                var token = jwt.sign({ userID: results.data[0].id }, supersecret);
+                res.send({ message: "User OK!", token });
             } else {
                 res.status(404).send({ message: "User not found!" });
             }
@@ -44,15 +45,26 @@ router.post("/login", (req, res, next) => {
         .catch((err) => res.status(500).send(err));
 });
 
-router.get("/profile", (req, res, next) => {
-    db(`SELECT * FROM ratings;`)
-        .then((results) => {
-            console.log("Here are the results: ", results.data);
-
-            res.send(results.data);
-        })
-        .catch((err) => res.status(500).send(err));
+//This resourse is protected
+router.get("/profile", function(req, res, next) {
+    const token = req.headers["x-access-token"];
+    if (!token) {
+        res.status(401).send({ message: "Please log in!" });
+    } else {
+        jwt.verify(token, supersecret, function(err, decoded) {
+            if (err) res.status(401).send({ message: err.message });
+            else {
+                const { userID } = decoded;
+                console.log(userID)
+                res.send({ message: "here is your private info!", decoded })
+            }
+        });
+    }
 });
+
+
+
+
 
 // DELETE a question from the DB
 router.delete("/", function(req, res, next) {
