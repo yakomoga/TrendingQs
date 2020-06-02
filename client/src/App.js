@@ -4,9 +4,12 @@ import GameCard from "./components/GameCard";
 import InitModal from "./components/InitModal";
 import SurveyNavBar from "./components/SurveyNavBar";
 import "./App.css";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+
+import Login from "./components/Login";
+import SignUp from "./components/SignUp";
 
 // import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import { BrowserRouter as Router } from "react-router-dom";
 
 class App extends Component {
   constructor(props) {
@@ -140,33 +143,68 @@ class App extends Component {
   gotoTwitter = () => {};
 
   render() {
-    return (
-      <Router>
+      return (<Router>
         <div className="App">
-          <SurveyNavBar handleshow={this.handleshow}></SurveyNavBar>
+        <SurveyNavBar handleshow={this.handleshow}></SurveyNavBar>
           <InitModal
             show={this.state.show}
             handleClose={this.handleClose}
             handleInput={this.handleInputChange}
             getQuestions={this.getQuestions}
           ></InitModal>
-          <GameCard
-            className="mx-auto"
-            handleNext={this.handleNext}
-            handlePrev={this.handlePrev}
-            gotoTwitter={this.gotoTwitter}
-            handleInput={this.handleInputChange}
-            handleSubmitAnswer={this.handleSubmitAnswer}
-            handleRatingChange={this.handleRatingChange}
-            question={this.state.question}
-            rating={this.state.rating}
-            q_num={this.state.q_num + 1}
-            answer={this.state.answer}
-            last_question={this.state.n}
-          ></GameCard>
-        </div>
-      </Router>
-    );
+          {/* <nav className="navbar navbar-expand-lg navbar-light fixed-top">
+            <div className="container">
+              <Link className="navbar-brand" to={"/login"}>positronX.io</Link>
+              <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
+                <ul className="navbar-nav ml-auto">
+                  <li className="nav-item">
+                    <Link className="nav-link" to={"/login"}>Login</Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link className="nav-link" to={"/sign-up"}>Sign up</Link>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </nav> */}
+    
+          <div className="auth-wrapper">
+            <div className="auth-inner">
+              <Switch>
+                <Route exact path='/' component={Login} />
+                <Route path="/login" component={Login} />
+                <Route path="/sign-up" component={SignUp} />
+              </Switch>
+            </div>
+          </div>
+        </div></Router>
+      );
+    //   <Router>
+    //     <div className="App">
+    //       <SurveyNavBar handleshow={this.handleshow}></SurveyNavBar>
+    //       <InitModal
+    //         show={this.state.show}
+    //         handleClose={this.handleClose}
+    //         handleInput={this.handleInputChange}
+    //         getQuestions={this.getQuestions}
+    //       ></InitModal>
+    //       <GameCard
+    //         className="mx-auto"
+    //         handleNext={this.handleNext}
+    //         handlePrev={this.handlePrev}
+    //         gotoTwitter={this.gotoTwitter}
+    //         handleInput={this.handleInputChange}
+    //         handleSubmitAnswer={this.handleSubmitAnswer}
+    //         handleRatingChange={this.handleRatingChange}
+    //         question={this.state.question}
+    //         rating={this.state.rating}
+    //         q_num={this.state.q_num + 1}
+    //         answer={this.state.answer}
+    //         last_question={this.state.n}
+    //       ></GameCard>
+    //     </div>
+    //   </Router>
+    // );
   }
 }
 
