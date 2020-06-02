@@ -8,16 +8,15 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 import Login from "./components/Login";
 import SignUp from "./components/SignUp";
+import Profile from "./components/Profile";
+import GameCard from "./components/GameCard";
 
-// import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       user_id: "1",
-      rating: { value: 50.0, user_id: "1", q_id: "" },
-      answer: { text: "", user_id: "1", q_id: "" },
       question: {},
       quiz_name: "test_quiz",
       n: 20,
@@ -89,12 +88,14 @@ class App extends Component {
     this.getQuestions();
   }
 
-  handleshow = () => {
+  handleShow = () => {
     this.setState({ show: true });
   };
+
   handleClose = () => {
     this.setState({ show: false });
   };
+
   //Generic input handler
   handleInputChange = (e) => {
     const value = e.target.value;
@@ -110,11 +111,10 @@ class App extends Component {
   };
   //rating handler in the quiz
   handleRatingChange = (e) => {
-    // let { value } = this.state.rating;
     this.setState({ value: e.target.value });
   };
 
-  //handler to move onto the next question
+  //TODO move this to the gameCard
   handleNext = () => {
     // let { answer, rating, q_num, ratings, answers, questions } = this.state;
     // let { answer, rating, q_num, ratings, answers } = this.state;
@@ -124,11 +124,9 @@ class App extends Component {
       question: this.state.questions[q_num + 1],
       q_num: q_num + 1,
     });
-    this.setQuizStartEnd();
   };
 
-  login = () => {};
-
+  //TODO move this to the gameCard
   handlePrev = () => {
     // let { answer, rating, q_num, ratings, answers, questions } = this.state;
     // let { answer, rating, q_num, ratings, answers } = this.state;
@@ -148,45 +146,21 @@ class App extends Component {
     return (
       <Router>
         <div className="App">
-          <SurveyNavBar handleshow={this.handleshow}></SurveyNavBar>
+          <SurveyNavBar handleShow={this.handleShow}></SurveyNavBar>
           <InitModal
             show={this.state.show}
             handleClose={this.handleClose}
             handleInput={this.handleInputChange}
             getQuestions={this.getQuestions}
           ></InitModal>
-          {/* <nav className="navbar navbar-expand-lg navbar-light fixed-top">
-            <div className="container">
-              <Link className="navbar-brand" to={"/login"}>positronX.io</Link>
-              <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
-                <ul className="navbar-nav ml-auto">
-                  <li className="nav-item">
-                    <Link className="nav-link" to={"/login"}>Login</Link>
-                  </li>
-                  <li className="nav-item">
-                    <Link className="nav-link" to={"/sign-up"}>Sign up</Link>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </nav> */}
-
           <div className="auth-wrapper">
             <div className="auth-inner">
               <Switch>
-                <Route exact path="/" component={Login} />
-                <Route
-                  path="/login"
-                  render={(props) => (
-                    <Login
-                      {...props}
-                      login={this.login}
-                      handleInput={this.handleInputChange}
-                    />
-                  )}
-                />
-
-                <Route path="/sign-up" component={SignUp} />
+                <Route path="/"><Login/></Route> 
+                <Route path="/login" component={Login} />
+                <Route path="/sign-up"><SignUp/></Route>
+                <Route path="/profile" component={Profile}/>
+                <Route path="/gamecard" component={GameCard}/>
               </Switch>
             </div>
           </div>

@@ -1,15 +1,20 @@
 var express = require("express");
 var router = express.Router();
 var jwt = require("jsonwebtoken");
+var userMustBeLoggedIn = require("../guards/userMustBeLoggedIn");
 const db = require("../model/helper");
 const supersecret = process.env.SUPER_SECRET;
 require("dotenv").config();
 
-// /* GET users listing. */
-// router.get('/', function(req, res, next) {
-//   res.send('respond with a resource');
-// });
-
+// GET users listing.
+router.get("/", (req, res, next) => {
+    let { id } = req.params;
+    db(`SELECT * FROM users WHERE id = ${id};`)
+        .then((results) => {
+            res.send(results.data);
+        })
+        .catch((err) => res.status(500).send(err));
+});
 // GET ratings list
 // baseURL/questions/?n=10
 
@@ -20,7 +25,7 @@ router.post("/", (req, res, next) => {
             `INSERT INTO ratings (q_id, user_id, value) VALUES ("${req.body.q_id}", "${req.body.user_id}", "${req.body.value}");`
         )
         .then((results) => {
-            db(`SELECT * FROM users WHERE ;`)
+            db(`SELECT * FROM users;`)
                 .then((results) => {
                     res.send(results.data);
                 })
@@ -36,7 +41,7 @@ router.post("/login", (req, res, next) => {
         )
         .then((results) => {
             if (results.data.length) {
-                var token = jwt.sign({ userID: results.data[0].id }, supersecret);
+                var token = jwt.sign({ userId: results.data[0].id }, supersecret);
                 res.send({ message: "User OK!", token });
             } else {
                 res.status(404).send({ message: "User not found!" });
@@ -46,25 +51,9 @@ router.post("/login", (req, res, next) => {
 });
 
 //This resourse is protected
-router.get("/profile", function(req, res, next) {
-    const token = req.headers["x-access-token"];
-    if (!token) {
-        res.status(401).send({ message: "Please log in!" });
-    } else {
-        jwt.verify(token, supersecret, function(err, decoded) {
-            if (err) res.status(401).send({ message: err.message });
-            else {
-                const { userID } = decoded;
-                console.log(userID)
-                res.send({ message: "here is your private info!", decoded })
-            }
-        });
-    }
+router.get("/profile", userMustBeLoggedIn, (req, res, next) => {
+    res.send({ message: `Show this data for your user ${req.userId}` });
 });
-
-
-
-
 
 // DELETE a question from the DB
 router.delete("/", function(req, res, next) {

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Route , withRouter} from 'react-router-dom';
 import axios from "axios";
 
 class Login extends Component {
@@ -18,8 +19,7 @@ class Login extends Component {
     });
   };
 
-  login = (event) => {
-      event.preventDefault();
+  handleLogin = () => {
     const { email, password } = this.state;
     axios("/users/login", {
       method: "POST",
@@ -29,19 +29,28 @@ class Login extends Component {
       },
     })
     .then(response => {
-        console.log(response)
+        localStorage.setItem("token", response.data.token);
+        this.props.history.push('/gamecard');
+        console.log(response.data)
     })
     .catch(error => {console.log(error)})
   };
 
+  requestData = () => {
+    axios("/users/profile", {
+        headers: {"x-access-token": localStorage.getItem("token")}
+    })
+      .then(response => {
+       console.log(response)
+      })
+      .catch(error => {console.log(error)})
+    };
+
   render() {
     const { email, password } = this.state;
-    const { login, handleInputChange } = this;
-
     return (
-      <form>
+      <div>
         <h3>Log In</h3>
-
         <div className="form-group">
           <label>Email address</label>
           <input
@@ -49,7 +58,7 @@ class Login extends Component {
             name="email"
             id="email"
             value={email}
-            onChange={handleInputChange}
+            onChange={this.handleInputChange}
             className="form-control"
             placeholder="Enter email"
           />
@@ -62,7 +71,7 @@ class Login extends Component {
             name="password"
             id="password"
             value={password}
-            onChange={handleInputChange}
+            onChange={this.handleInputChange}
             className="form-control"
             placeholder="Enter password"
           />
@@ -83,7 +92,7 @@ class Login extends Component {
 
         <button
         //   type="submit"
-          onClick={login}
+          onClick={this.handleLogin}
           className="btn btn-primary btn-block"
         >
           Login
@@ -91,8 +100,8 @@ class Login extends Component {
         <p className="forgot-password text-right">
           Forgot <a href="#">password?</a>
         </p>
-      </form>
+      </div>
     );
   }
 }
-export default Login;
+export default withRouter(Login);
