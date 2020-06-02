@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 //import ReactDOM from "react-dom";
-import GameCard from "./components/GameCard";
+
 import InitModal from "./components/InitModal";
 import SurveyNavBar from "./components/SurveyNavBar";
 import "./App.css";
@@ -47,7 +47,7 @@ class App extends Component {
       });
     this.handleClose();
   };
-//find out why this doesn't work well (the else if)
+  //find out why this doesn't work well (the else if)
   // setQuizStartEnd = () => {
   //   console.log("this is q_num: ", this.state.q_num);
   //   if (this.state.q_num + 1 == this.state.n - 1) {
@@ -127,6 +127,8 @@ class App extends Component {
     this.setQuizStartEnd();
   };
 
+  login = () => {};
+
   handlePrev = () => {
     // let { answer, rating, q_num, ratings, answers, questions } = this.state;
     // let { answer, rating, q_num, ratings, answers } = this.state;
@@ -143,9 +145,10 @@ class App extends Component {
   gotoTwitter = () => {};
 
   render() {
-      return (<Router>
+    return (
+      <Router>
         <div className="App">
-        <SurveyNavBar handleshow={this.handleshow}></SurveyNavBar>
+          <SurveyNavBar handleshow={this.handleshow}></SurveyNavBar>
           <InitModal
             show={this.state.show}
             handleClose={this.handleClose}
@@ -167,44 +170,29 @@ class App extends Component {
               </div>
             </div>
           </nav> */}
-    
+
           <div className="auth-wrapper">
             <div className="auth-inner">
               <Switch>
-                <Route exact path='/' component={Login} />
-                <Route path="/login" component={Login} />
+                <Route exact path="/" component={Login} />
+                <Route
+                  path="/login"
+                  render={(props) => (
+                    <Login
+                      {...props}
+                      login={this.login}
+                      handleInput={this.handleInputChange}
+                    />
+                  )}
+                />
+
                 <Route path="/sign-up" component={SignUp} />
               </Switch>
             </div>
           </div>
-        </div></Router>
-      );
-    //   <Router>
-    //     <div className="App">
-    //       <SurveyNavBar handleshow={this.handleshow}></SurveyNavBar>
-    //       <InitModal
-    //         show={this.state.show}
-    //         handleClose={this.handleClose}
-    //         handleInput={this.handleInputChange}
-    //         getQuestions={this.getQuestions}
-    //       ></InitModal>
-    //       <GameCard
-    //         className="mx-auto"
-    //         handleNext={this.handleNext}
-    //         handlePrev={this.handlePrev}
-    //         gotoTwitter={this.gotoTwitter}
-    //         handleInput={this.handleInputChange}
-    //         handleSubmitAnswer={this.handleSubmitAnswer}
-    //         handleRatingChange={this.handleRatingChange}
-    //         question={this.state.question}
-    //         rating={this.state.rating}
-    //         q_num={this.state.q_num + 1}
-    //         answer={this.state.answer}
-    //         last_question={this.state.n}
-    //       ></GameCard>
-    //     </div>
-    //   </Router>
-    // );
+        </div>
+      </Router>
+    );
   }
 }
 
