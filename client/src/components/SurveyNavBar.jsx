@@ -32,7 +32,7 @@ class SurveyNavBar extends Component {
                     <Link className="nav-link" to={"/"}>Home</Link>
                   </li>
             <li className="nav-item">
-                    <Link className="nav-link" to={"/features"}>Feature</Link>
+                    <Link className="nav-link" to={"/gamecard"}>GameCard</Link>
                   </li>
             <li className="nav-item">
                     <Link className="nav-link" to={"/about"}>About</Link>

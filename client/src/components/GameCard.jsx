@@ -17,14 +17,13 @@ class GameCard extends Component {
 
   render() {
     return (
-      <div id="game-card" className="App container text-center">
-        <Card style={{ maxWidth: "30rem", margin: "auto" }}>
+        <Card style={{ "margin": "-40px -55px -45px -55px"}} >
           <Card.Img
             variant="top"
             src="https://cdn-a.william-reed.com/var/wrbm_gb_food_pharma/storage/images/publications/food-beverage-nutrition/foodnavigator.com/news/market-trends/jellyfish-a-new-sustainable-nutritious-and-oyster-like-food-for-the-western-world/9974704-1-eng-GB/Jellyfish-A-new-sustainable-nutritious-and-oyster-like-food-for-the-Western-world_wrbm_large.jpg"
             alt="jellyfish"
           />
-          <Card.Body>
+          <Card.Body >
             <Card.Title>Question #{this.props.q_num}</Card.Title>
             <Card.Text style={{ minHeight: "4rem", verticalAlign: "middle" }}>
               {this.props.question.text}
@@ -81,7 +80,6 @@ class GameCard extends Component {
             </div>
           </li>
         </Card>
-      </div>
     );
   }
 }
