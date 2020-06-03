@@ -76,7 +76,6 @@ class GameCard extends Component {
                 type="range"
                 className="form-control-range"
                 id="formControlRange"
-                defaultValue={this.props.rating.value}
                 onChange={this.props.handleRating}
               />
             </div>

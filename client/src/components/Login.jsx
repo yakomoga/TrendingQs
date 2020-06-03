@@ -20,12 +20,12 @@ class Login extends Component {
   };
 
   openGameCard = () => {
-    axios("/users/profile", {
+    axios("/users/gamecard", {
         headers: {"x-access-token": localStorage.getItem("token")}
     })
       .then(response => {
           console.log(response.data)
-          this.props.history.push('/users/profile');
+          this.props.history.push('/gamecard');
       })
       .catch(error => {console.log("This is the error ********* ", error)})
     };
