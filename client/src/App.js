@@ -41,6 +41,7 @@ class App extends Component {
         this.setState({
           question: this.state.questions[0],
           q_num: 0,
+          q_id: this.state.questions[0].id
           // quiz_end: false,
         });
       });
@@ -123,6 +124,7 @@ class App extends Component {
     this.setState({
       question: this.state.questions[q_num + 1],
       q_num: q_num + 1,
+      q_id: this.state.questions[q_num + 1].id
     });
   };
 

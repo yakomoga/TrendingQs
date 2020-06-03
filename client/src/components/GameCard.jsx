@@ -52,6 +52,7 @@ class GameCard extends Component {
             </InputGroup.Append>
           </InputGroup>
           <Button
+          style={{"background-color": "#35accc", "border-color":"#35accc" }}
             className="mr-2"
             as="input"
             type="button"
@@ -60,6 +61,7 @@ class GameCard extends Component {
             disabled={this.props.q_num === 1}
           />
           <Button
+          style={{"background-color": "#35accc", "border-color":"#35accc" }}
             className="mr-2"
             as="input"
             type="button"

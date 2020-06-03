@@ -15,7 +15,7 @@ code {
 }
 
 body {
-    background: rgb(82, 149, 213) !important;
+    background: #2a99c0 !important;
     min-height: 100vh;
     display: flex;
     font-weight: 400;
@@ -66,7 +66,7 @@ html,
 }
 
 .auth-wrapper .form-control:focus {
-    border-color: rgb(82, 149, 213);
+    border-color: #2a99c0;
     box-shadow: none;
 }
 
@@ -91,5 +91,12 @@ html,
 }
 
 .forgot-password a {
-    color: rgb(82, 149, 213);
+    color: #2a99c0;
+}
+
+.btn .btn-primary.disabled,
+.btn-primary:disabled {
+    color: #fff;
+    background-color: #2a99c0;
+    border-color: #2a99c0;
 }
