@@ -47,21 +47,6 @@ class App extends Component {
       });
     this.handleClose();
   };
-  //find out why this doesn't work well (the else if)
-  // setQuizStartEnd = () => {
-  //   console.log("this is q_num: ", this.state.q_num);
-  //   if (this.state.q_num + 1 == this.state.n - 1) {
-  //     this.setState({ quiz_start: false, quiz_end: true });
-  //   } else if (this.state.q_num-1  === 0) {
-  //     console.log("this.state.q_num: ", this.state.q_num);
-  //     this.setState({ quiz_start: true, quiz_end: false });
-  //   } else {
-  //     this.setState({ quiz_start: false, quiz_end: false });
-  //   }
-  //   console.log(
-  //     `this are states quiz_start: ${this.state.quiz_start}, quiz_end: ${this.state.quiz_end} `
-  //   );
-  // };
 
   saveAnswer = () => {
     let request = `/answers`;
@@ -137,8 +122,8 @@ class App extends Component {
     this.setState({
       question: this.state.questions[q_num - 1],
       q_num: q_num - 1,
+      q_id: this.state.questions[q_num - 1].id
     });
-    this.setQuizStartEnd();
   };
   //send a fetch request to the server to post the results of the quiz
   //open new browsing tab to twurl
